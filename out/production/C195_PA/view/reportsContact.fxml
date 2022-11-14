@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsContact">
+   <children>
+      <TableView layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="750.0">
+        <columns>
+          <TableColumn prefWidth="100.0" text="Appointment ID" />
+          <TableColumn prefWidth="75.0" text="Title" />
+            <TableColumn prefWidth="75.0" text="Description" />
+            <TableColumn prefWidth="75.0" text="Type" />
+            <TableColumn prefWidth="75.0" text="Time Start" />
+            <TableColumn prefWidth="90.0" text="Time Finished" />
+            <TableColumn text="Start Date" />
+            <TableColumn prefWidth="90.0" text="Date Finished" />
+            <TableColumn prefWidth="90.0" text="Customer ID" />
+        </columns>
+      </TableView>
+      <ComboBox layoutX="794.0" layoutY="141.0" prefWidth="150.0" />
+      <RadioButton layoutX="794.0" layoutY="39.0" mnemonicParsing="false" text="Type" />
+      <RadioButton layoutX="794.0" layoutY="69.0" mnemonicParsing="false" text="Month" />
+      <RadioButton layoutX="794.0" layoutY="99.0" mnemonicParsing="false" text="Customer ID" />
+      <Button layoutX="906.0" layoutY="540.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="Exit" />
+      <Label layoutX="14.0" layoutY="569.0" text="Reports Page" />
+      <Label layoutX="596.0" layoutY="414.0" text="Total Number of Customers: ##" />
+   </children>
+</AnchorPane>
