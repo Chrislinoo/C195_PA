@@ -3,7 +3,9 @@ package controller;
 import DBAccess.DBCountries;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import model.Countries;
 
 import java.net.URL;
@@ -17,7 +19,59 @@ public class Login implements Initializable {
 
     }
 
-    public void loginClick(ActionEvent actionEvent) {
+    @FXML
+    private Label credentialsLabel;
+
+    @FXML
+    private SplitMenuButton languageSplitMenu;
+
+    @FXML
+    private Button loginBtn;
+
+    @FXML
+    private MenuItem menuItemEng;
+
+    @FXML
+    private MenuItem menuItemFrench;
+
+    @FXML
+    private Label passLabel;
+
+    @FXML
+    private PasswordField passwordTxt;
+
+    @FXML
+    private Label userIdLabel;
+
+    @FXML
+    private TextField userIdTxt;
+
+    @FXML
+    private Label zoneIdLabel;
+
+    @FXML
+    void onActionLogIn(ActionEvent event) {
+
+    }
+
+    @FXML
+    void passwordInput(ActionEvent event) {
+
+    }
+
+    @FXML
+    void switchEng(ActionEvent event) {
+
+    }
+
+    @FXML
+    void switchFrench(ActionEvent event) {
+
+    }
+
+    @FXML
+    void userIdInput(ActionEvent event) {
+
     }
 
 
