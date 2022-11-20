@@ -18,7 +18,7 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="125.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
@@ -43,30 +43,30 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TextField disable="true" text="Auto-Gen" GridPane.columnIndex="1">
+            <TextField fx:id="customerIdTxtField" disable="true" onAction="#customerId_input" text="Auto-Gen" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField prefWidth="243.0" GridPane.columnIndex="3">
+            <TextField fx:id="nameTxtField" onAction="#name_input" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="phoneTxtField" onAction="#phone_input" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="addressTxtField" onAction="#address_input" prefWidth="243.0" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="postalTxtField" onAction="#postal_input" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label text="Country:" GridPane.rowIndex="3" />
             <Label text="Division:" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox prefWidth="150.0" promptText="states/provinces" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ComboBox fx:id="countryCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="divisionCombo" prefWidth="150.0" promptText="States/Provinces" GridPane.columnIndex="3" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button layoutX="170.0" layoutY="338.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Save" />
-      <Button layoutX="255.0" layoutY="338.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Cancel" />
+      <Button fx:id="saveBtn" layoutX="170.0" layoutY="338.0" mnemonicParsing="false" onAction="#saveBtn_action" prefHeight="50.0" prefWidth="75.0" text="Save" />
+      <Button fx:id="cancelBtn" layoutX="255.0" layoutY="338.0" mnemonicParsing="false" onAction="#cancelBtn_action" prefHeight="50.0" prefWidth="75.0" text="Cancel" />
    </children>
 </AnchorPane>

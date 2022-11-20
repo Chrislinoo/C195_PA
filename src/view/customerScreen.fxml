@@ -29,7 +29,7 @@
       </TableView>
       <SplitMenuButton fx:id="viewBySplit" layoutX="75.0" layoutY="44.0" mnemonicParsing="false" text="View By...">
          <items>
-            <MenuItem mnemonicParsing="false" onAction="#splitmenuWeek" text="Week" />
+            <MenuItem mnemonicParsing="false" onAction="#splitMenuWeek" text="Week" />
             <MenuItem mnemonicParsing="false" onAction="#splitMenuMonth" text="Month" />
             <MenuItem mnemonicParsing="false" onAction="#splitMenuAll" text="All" />
          </items>

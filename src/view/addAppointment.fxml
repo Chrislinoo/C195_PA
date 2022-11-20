@@ -46,19 +46,19 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TextField disable="true" text="Auto-Gen" GridPane.columnIndex="1">
+            <TextField fx:id="appointmentIdTxtField" disable="true" onAction="#appointmentId_action" text="Auto-Gen" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField prefWidth="243.0" GridPane.columnIndex="3">
+            <TextField fx:id="descriptionTxtField" onAction="#description_action" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="contactTxtField" onAction="#contact_action" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="titileTxtField" onAction="#title_action" prefWidth="243.0" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="locationTxtField" onAction="#location_action" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label text="Start Date:" GridPane.rowIndex="3" />
             <Label text="Start Time:" GridPane.rowIndex="4" />
             <Label text="Type:" GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -68,11 +68,11 @@
             </Label>
             <Label text="End Date:" GridPane.rowIndex="5" />
             <Label text="End Time:" GridPane.rowIndex="6" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <DatePicker fx:id="startDatePicker" onAction="#startDate_action" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="endDatePicker" onAction="#endDate_action" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="typeTxtField" onAction="#type_action" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Label text="Customer_ID:" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <padding>
                   <Insets left="10.0" />
@@ -83,11 +83,11 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <TextField fx:id="customerIdTxtField" onAction="#customerId_action" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <TextField fx:id="userIdTxtField" onAction="#userId_action" GridPane.columnIndex="3" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Button layoutX="170.0" layoutY="508.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Save" />
-      <Button layoutX="255.0" layoutY="508.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Cancel" />
+      <Button fx:id="saveBtn" layoutX="170.0" layoutY="508.0" mnemonicParsing="false" onAction="#saveBtn_action" prefHeight="50.0" prefWidth="75.0" text="Save" />
+      <Button fx:id="cancelBtn" layoutX="255.0" layoutY="508.0" mnemonicParsing="false" onAction="#cancelBtn_action" prefHeight="50.0" prefWidth="75.0" text="Cancel" />
    </children>
 </AnchorPane>

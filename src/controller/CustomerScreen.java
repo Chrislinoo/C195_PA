@@ -99,7 +99,7 @@ public class CustomerScreen {
     }
 
     @FXML
-    void splitmenuWeek(ActionEvent event) {
+    void splitMenuWeek(ActionEvent event) {
 
     }
 
