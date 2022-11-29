@@ -14,6 +14,9 @@ public abstract class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
+    /**
+     * This starts the database connection.
+     */
     public static void openConnection()
     {
         try {
@@ -29,6 +32,9 @@ public abstract class JDBC {
         }
     }
 
+    /**
+     * Closes the database connection.
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -36,7 +42,8 @@ public abstract class JDBC {
         }
         catch(Exception e)
         {
-            System.out.println("Error:" + e.getMessage());
+            //System.out.println("Error:" + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
