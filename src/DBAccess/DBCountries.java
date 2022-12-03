@@ -10,17 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DBCountries extends Countries{
+public class DBCountries {
 
-    //made it extend countries model so that i can create the super constructor for it.
-    public DBCountries(int id, String name) {
-        super(id, name);
-    }
+
 
     /**
      * Method that returns an observable list named "countriesList". It first makes the query , followed by establishing the connection to the DB which then uses
      * a prepared statement with the sql. Then we loop through the results set, and we build new countries objects from the DB.
-     * @return
+     * @return the information desired from the database.
      */
     public static ObservableList<Countries> getAllCountries(){
         ObservableList<Countries> countriesList = FXCollections.observableArrayList();

@@ -6,22 +6,31 @@ package model;
  */
 public class Customer {
 
+    private int customerId;
     private String customerName;
     private String customerAddress;
     private String customerPostal;
     private String customerPhone;
-    private String divisionName;
-    private int customerId;
+    //private String divisionName;
     private int divisionId;
 
-
-    public String getDivisionName() {
-        return divisionName;
+    public Customer(int customerId, String customerName, String customerAddress, String customerPostal, String customerPhone, int divisionId) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerPostal = customerPostal;
+        this.customerPhone = customerPhone;
+        //this.divisionName = divisionName;
+        this.divisionId = divisionId;
     }
 
-    public void setDivisionName(String divisionName) {
-        this.divisionName = divisionName;
-    }
+//    public String getDivisionName() {
+//        return divisionName;
+//    }
+//
+//    public void setDivisionName(String divisionName) {
+//        this.divisionName = divisionName;
+//    }
 
     public String getCustomerName() {
         return customerName;

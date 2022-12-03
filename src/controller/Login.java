@@ -1,12 +1,14 @@
 package controller;
 
 import DBAccess.DBCountries;
+import DBAccess.DBCustomers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.Countries;
+import model.Customer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,6 +53,10 @@ public class Login implements Initializable {
 
     @FXML
     void onActionLogIn(ActionEvent event) {
+//        ObservableList<Customer> Customers = DBCustomers.getAllCustomers();
+//        for (Customer customers : Customers){
+//            System.out.println("Customer ID: " + customers.getCustomerId() + " Name: " + customers.getCustomerName());
+//        }
 
     }
 
