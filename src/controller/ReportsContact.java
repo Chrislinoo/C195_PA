@@ -2,13 +2,22 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ReportsContact {
+
+    Parent scene;
+    Stage stage;
 
     @FXML
     private TableColumn<?, ?> appointmentId_column;
@@ -61,8 +70,14 @@ public class ReportsContact {
     }
 
     @FXML
-    void exitBtn_action(ActionEvent event) {
+    void exitBtn_action(ActionEvent event) throws IOException {
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
+        scene = FXMLLoader.load(getClass().getResource("/view/appointmentScreen.fxml"));
+
+        stage.setScene(new Scene(scene));
+
+        stage.show();
     }
 
     @FXML

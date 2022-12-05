@@ -2,12 +2,21 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AppointmentScreen {
+
+    Parent scene;
+    Stage stage;
 
     @FXML
     private Button addAppointmentBtn;
@@ -70,13 +79,25 @@ public class AppointmentScreen {
     private SplitMenuButton viewBySplit;
 
     @FXML
-    void addBtnAction(ActionEvent event) {
+    void addBtnAction(ActionEvent event) throws IOException {
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
+        scene = FXMLLoader.load(getClass().getResource("/view/addAppointment.fxml"));
+
+        stage.setScene(new Scene(scene));
+
+        stage.show();
     }
 
     @FXML
-    void customersBtnAction(ActionEvent event) {
+    void customersBtnAction(ActionEvent event) throws IOException {
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
+        scene = FXMLLoader.load(getClass().getResource("/view/customerScreen.fxml"));
+
+        stage.setScene(new Scene(scene));
+
+        stage.show();
     }
 
     @FXML
@@ -86,12 +107,18 @@ public class AppointmentScreen {
 
     @FXML
     void exitBtnAction(ActionEvent event) {
-
+        System.exit(0);
     }
 
     @FXML
-    void reportsBtnAction(ActionEvent event) {
+    void reportsBtnAction(ActionEvent event) throws IOException {
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
+        scene = FXMLLoader.load(getClass().getResource("/view/reportsContact.fxml"));
+
+        stage.setScene(new Scene(scene));
+
+        stage.show();
     }
 
     @FXML
@@ -110,7 +137,14 @@ public class AppointmentScreen {
     }
 
     @FXML
-    void updateBtnAction(ActionEvent event) {
+    void updateBtnAction(ActionEvent event) throws IOException {
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+
+        scene = FXMLLoader.load(getClass().getResource("/view/updateAppointment.fxml"));
+
+        stage.setScene(new Scene(scene));
+
+        stage.show();
 
     }
 

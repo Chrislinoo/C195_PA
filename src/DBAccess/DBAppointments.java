@@ -11,7 +11,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class DBAppointments {
-
+    /**
+     * Method that returns an observable list named "appointmentsList". It first makes the query , followed by establishing the connection to the DB which then uses
+     * a prepared statement with the sql. Then we loop through the results set, and we build new appointments objects from the DB.
+     * @return the information desired from the database.
+     */
     public static ObservableList<Appointments> getAllAppointments(){
         ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
 

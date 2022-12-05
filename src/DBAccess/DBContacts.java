@@ -10,7 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBContacts {
-
+    /**
+     * Method that returns an observable list named "contactsList". It first makes the query , followed by establishing the connection to the DB which then uses
+     * a prepared statement with the sql. Then we loop through the results set, and we build new contact objects from the DB.
+     * @return the information desired from the database.
+     */
     public static ObservableList<Contacts> getAllContacts(){
         ObservableList<Contacts> contactsList = FXCollections.observableArrayList();
 

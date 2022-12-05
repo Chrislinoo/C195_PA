@@ -23,7 +23,7 @@
                   <Insets bottom="15.0" />
                </padding>
             </Label>
-            <TextField fx:id="userIdTxt" onAction="#userIdInput">
+            <TextField fx:id="userIdTxt" onAction="#userIdInput" promptText="User ID">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>

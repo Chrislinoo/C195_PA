@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateCustomer">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Update Customer " />
@@ -44,30 +43,30 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TextField disable="true" text="Auto-Gen" GridPane.columnIndex="1">
+            <TextField fx:id="customerIdTxt" disable="true" text="Auto-Gen" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField prefWidth="243.0" GridPane.columnIndex="3">
+            <TextField fx:id="nameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="phoneTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="addressTxt" prefWidth="243.0" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="postalTxt" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label text="Country:" GridPane.rowIndex="3" />
             <Label text="Division:" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox prefWidth="150.0" promptText="states/provinces" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ComboBox fx:id="countryCombo" onAction="#countryCombo_Action" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="divisionCombo" onAction="#divisionCombo_Action" prefWidth="150.0" promptText="states/provinces" GridPane.columnIndex="3" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button layoutX="170.0" layoutY="338.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Save" />
-      <Button layoutX="255.0" layoutY="338.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Cancel" />
+      <Button layoutX="170.0" layoutY="338.0" mnemonicParsing="false" onAction="#saveBtn_Action" prefHeight="50.0" prefWidth="75.0" text="Save" />
+      <Button layoutX="255.0" layoutY="338.0" mnemonicParsing="false" onAction="#cancelBtn_Action" prefHeight="50.0" prefWidth="75.0" text="Cancel" />
    </children>
 </AnchorPane>

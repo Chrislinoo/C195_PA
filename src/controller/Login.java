@@ -2,18 +2,27 @@ package controller;
 
 import DBAccess.DBCountries;
 import DBAccess.DBCustomers;
+import DBAccess.DBUsers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import model.Countries;
 import model.Customer;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Login implements Initializable {
+
+    Stage stage;
+    Parent scene;
 
 
     @Override
@@ -52,13 +61,46 @@ public class Login implements Initializable {
     private Label zoneIdLabel;
 
     @FXML
-    void onActionLogIn(ActionEvent event) {
+    void onActionLogIn(ActionEvent event) throws IOException {
 //        ObservableList<Customer> Customers = DBCustomers.getAllCustomers();
 //        for (Customer customers : Customers){
 //            System.out.println("Customer ID: " + customers.getCustomerId() + " Name: " + customers.getCustomerName());
 //        }
+        try {
+            String username = userIdTxt.getText();
+            String password = passwordTxt.getText();
+
+            int userID = DBUsers.loginMatch(username, password);
+
+            if (userID > 0) {
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+                scene = FXMLLoader.load(getClass().getResource("/view/appointmentScreen.fxml"));
+
+                stage.setScene(new Scene(scene));
+
+                stage.setTitle("Appointment Screen");
+
+                stage.show();
+
+                System.out.println("Login Successful");
+            }
+            else if (userID < 1){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Incorrect username and password.");
+                alert.showAndWait();
+            }
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+
+
+
+        }
 
     }
+
 
     @FXML
     void passwordInput(ActionEvent event) {
@@ -81,11 +123,5 @@ public class Login implements Initializable {
     }
 
 
-    /*public void showMeBtn(javafx.event.ActionEvent actionEvent) {
-        ObservableList<Countries> Countries = DBCountries.getAllCountries();
-        for (Countries C : Countries){
-            System.out.println("Country ID: " + C.getId() + " Name: " + C.getName());
-        }
-    }*/
 
 }
