@@ -21,7 +21,8 @@ public class DBCustomers {
         ObservableList<Customer> customersList = FXCollections.observableArrayList();
 
         try {
-            String sql = "SELECT * from customers";
+            //String sql = "SELECT * from customers";
+            String sql = "SELECT * FROM customers LEFT JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID";
 
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
 
@@ -34,8 +35,9 @@ public class DBCustomers {
                 String customerPostal = rs.getString("Postal_Code");
                 String customerPhone = rs.getString("Phone");
                 int divisionId = rs.getInt("Division_ID");
+                String divisionName = rs.getString("Division");
 
-                Customer customer = new Customer(customerId, customerName, customerAddress, customerPostal, customerPhone, divisionId);
+                Customer customer = new Customer(customerId, customerName, customerAddress, customerPostal, customerPhone, divisionId, divisionName);
                 customersList.add(customer);
             }
         } catch (SQLException throwables) {

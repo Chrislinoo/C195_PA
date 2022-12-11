@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="611.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerScreen">
    <children>
-      <TableView layoutX="125.0" layoutY="75.0" prefHeight="450.0" prefWidth="800.0">
+      <TableView fx:id="customerTable" layoutX="125.0" layoutY="75.0" prefHeight="450.0" prefWidth="800.0">
          <columns>
             <TableColumn fx:id="customerId_column" prefWidth="120.0" text="Customer ID" />
             <TableColumn fx:id="customerName_column" prefWidth="120.0" text="Customer Name" />

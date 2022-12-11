@@ -11,26 +11,26 @@ public class Customer {
     private String customerAddress;
     private String customerPostal;
     private String customerPhone;
-    //private String divisionName;
+    private String divisionName;
     private int divisionId;
 
-    public Customer(int customerId, String customerName, String customerAddress, String customerPostal, String customerPhone, int divisionId) {
+    public Customer(int customerId, String customerName, String customerAddress, String customerPostal, String customerPhone, int divisionId, String divisionName) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerPostal = customerPostal;
         this.customerPhone = customerPhone;
-        //this.divisionName = divisionName;
+        this.divisionName = divisionName;
         this.divisionId = divisionId;
     }
 
-//    public String getDivisionName() {
-//        return divisionName;
-//    }
-//
-//    public void setDivisionName(String divisionName) {
-//        this.divisionName = divisionName;
-//    }
+    public String getDivisionName() {
+        return divisionName;
+    }
+
+    public void setDivisionName(String divisionName) {
+        this.divisionName = divisionName;
+    }
 
     public String getCustomerName() {
         return customerName;

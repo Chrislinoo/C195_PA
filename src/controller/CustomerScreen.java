@@ -1,16 +1,19 @@
 package controller;
 
+import DBAccess.DBCustomers;
+import DBAccess.DBDivisions;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitMenuButton;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Customer;
+import model.Divisions;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,6 +48,8 @@ public class CustomerScreen implements Initializable {
 
     @FXML
     private Button exitCustomerBtn;
+    @FXML
+    private TableView<Customer> customerTable;
 
     @FXML
     private TableColumn<?, ?> lastUpdate_column;
@@ -146,6 +151,20 @@ public class CustomerScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<Customer> customerObservableList = DBCustomers.getAllCustomers();
+        ObservableList<Divisions> divisionsObservableList = DBDivisions.getAllDivisions();
+        customerTable.setItems(DBCustomers.getAllCustomers());
 
+        customerId_column.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customerName_column.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        address_column.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        postalCode_column.setCellValueFactory(new PropertyValueFactory<>("customerPostal"));
+        phone_column.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+        state_column.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
+
+
+
+
+        customerTable.setItems(customerObservableList);
     }
 }

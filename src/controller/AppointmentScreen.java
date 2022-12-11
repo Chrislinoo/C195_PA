@@ -169,8 +169,6 @@ public class AppointmentScreen implements Initializable {
         type_column.setCellValueFactory(new PropertyValueFactory<>("aptType"));
         startTime_column.setCellValueFactory(new PropertyValueFactory<>("aptStartTime"));
         endTime_column.setCellValueFactory(new PropertyValueFactory<>("aptEndTime"));
-//        startDate_column.setCellValueFactory(new PropertyValueFactory<>("Start"));
-//        endDate_column.setCellValueFactory(new PropertyValueFactory<>("End"));
         customerId_column.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userId_column.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
