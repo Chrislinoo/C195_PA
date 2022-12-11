@@ -13,20 +13,18 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentScreen">
    <children>
-      <TableView layoutX="75.0" layoutY="75.0" prefHeight="450.0" prefWidth="1060.0">
+      <TableView fx:id="appointmentsTable" layoutX="75.0" layoutY="75.0" prefHeight="450.0" prefWidth="1060.0">
         <columns>
           <TableColumn fx:id="appointmentId_column" prefWidth="100.0" text="Appointment ID" />
-          <TableColumn fx:id="title_column" prefWidth="75.0" text="Title" />
-            <TableColumn fx:id="description_column" prefWidth="100.0" text="Description" />
-            <TableColumn fx:id="location_column" prefWidth="75.0" text="Location" />
-            <TableColumn fx:id="contact_column" prefWidth="75.0" text="Contact" />
-            <TableColumn fx:id="type_column" prefWidth="75.0" text="Type" />
-            <TableColumn fx:id="startTime_column" prefWidth="90.0" text="Start Time" />
-            <TableColumn fx:id="endTime_column" prefWidth="90.0" text="End Time" />
-            <TableColumn fx:id="startDate_column" prefWidth="90.0" text="Start Date" />
-            <TableColumn fx:id="endDate_column" prefWidth="90.0" text="End Date" />
-            <TableColumn fx:id="customerId_column" prefWidth="100.0" text="Customer ID" />
-            <TableColumn fx:id="userId_column" prefWidth="100.0" text="User ID" />
+          <TableColumn fx:id="title_column" prefWidth="90.0" text="Title" />
+            <TableColumn fx:id="description_column" prefWidth="120.0" text="Description" />
+            <TableColumn fx:id="location_column" prefWidth="120.0" text="Location" />
+            <TableColumn fx:id="contact_column" prefWidth="110.0" text="Contact" />
+            <TableColumn fx:id="type_column" prefWidth="110.0" text="Type" />
+            <TableColumn fx:id="startTime_column" prefWidth="120.0" text="Start" />
+            <TableColumn fx:id="endTime_column" prefWidth="120.0" text="End" />
+            <TableColumn fx:id="customerId_column" prefWidth="90.0" text="Customer ID" />
+            <TableColumn fx:id="userId_column" text="User ID" />
         </columns>
       </TableView>
       <SplitMenuButton fx:id="viewBySplit" layoutX="75.0" layoutY="44.0" mnemonicParsing="false" text="View By...">

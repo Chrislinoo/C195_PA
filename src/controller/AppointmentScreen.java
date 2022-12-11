@@ -1,19 +1,24 @@
 package controller;
 
+import DBAccess.DBAppointments;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitMenuButton;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointments;
 
 import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ResourceBundle;
 
-public class AppointmentScreen {
+public class AppointmentScreen implements Initializable {
 
     Parent scene;
     Stage stage;
@@ -22,13 +27,15 @@ public class AppointmentScreen {
     private Button addAppointmentBtn;
 
     @FXML
-    private TableColumn<?, ?> appointmentId_column;
+    private TableView<Appointments> appointmentsTable;
+    @FXML
+    private TableColumn<Appointments, Integer> appointmentId_column;
 
     @FXML
-    private TableColumn<?, ?> contact_column;
+    private TableColumn<Appointments, String> contact_column;
 
     @FXML
-    private TableColumn<?, ?> customerId_column;
+    private TableColumn<Appointments, Integer> customerId_column;
 
     @FXML
     private Button customersBtn;
@@ -37,43 +44,43 @@ public class AppointmentScreen {
     private Button deleteAppointmentBtn;
 
     @FXML
-    private TableColumn<?, ?> description_column;
+    private TableColumn<Appointments, String> description_column;
 
     @FXML
-    private TableColumn<?, ?> endDate_column;
+    private TableColumn<Appointments, LocalDateTime> endDate_column;
 
     @FXML
-    private TableColumn<?, ?> endTime_column;
+    private TableColumn<Appointments, LocalDateTime> endTime_column;
 
     @FXML
     private Button exitAppointmentBtn;
 
     @FXML
-    private TableColumn<?, ?> location_column;
+    private TableColumn<Appointments, String> location_column;
 
     @FXML
     private Button reportsBtn;
 
     @FXML
-    private TableColumn<?, ?> startDate_column;
+    private TableColumn<Appointments, LocalDateTime> startDate_column;
 
     @FXML
-    private TableColumn<?, ?> startTime_column;
+    private TableColumn<Appointments, LocalDateTime> startTime_column;
 
     @FXML
     private Label timeZoneLabel;
 
     @FXML
-    private TableColumn<?, ?> title_column;
+    private TableColumn<Appointments, String> title_column;
 
     @FXML
-    private TableColumn<?, ?> type_column;
+    private TableColumn<Appointments, String> type_column;
 
     @FXML
     private Button updateAppointmentBtn;
 
     @FXML
-    private TableColumn<?, ?> userId_column;
+    private TableColumn<Appointments, Integer> userId_column;
 
     @FXML
     private SplitMenuButton viewBySplit;
@@ -145,6 +152,29 @@ public class AppointmentScreen {
         stage.setScene(new Scene(scene));
 
         stage.show();
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
+
+        appointmentsTable.setItems(DBAppointments.getAllAppointments());
+
+        appointmentId_column.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        title_column.setCellValueFactory(new PropertyValueFactory<>("aptTitle"));
+        description_column.setCellValueFactory(new PropertyValueFactory<>("aptDescription"));
+        location_column.setCellValueFactory(new PropertyValueFactory<>("aptLocation"));
+        contact_column.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+        type_column.setCellValueFactory(new PropertyValueFactory<>("aptType"));
+        startTime_column.setCellValueFactory(new PropertyValueFactory<>("aptStartTime"));
+        endTime_column.setCellValueFactory(new PropertyValueFactory<>("aptEndTime"));
+//        startDate_column.setCellValueFactory(new PropertyValueFactory<>("Start"));
+//        endDate_column.setCellValueFactory(new PropertyValueFactory<>("End"));
+        customerId_column.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        userId_column.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
+        appointmentsTable.setItems(appointmentsObservableList);
 
     }
 
