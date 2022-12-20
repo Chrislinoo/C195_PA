@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -52,8 +53,7 @@
                </GridPane.margin>
             </TextField>
             <TextField fx:id="descriptionTxtField" onAction="#description_action" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="contactTxtField" onAction="#contact_action" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="titileTxtField" onAction="#title_action" prefWidth="243.0" GridPane.columnIndex="3">
+            <TextField fx:id="titleTxtField" onAction="#title_action" prefWidth="243.0" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -70,8 +70,6 @@
             <Label text="End Time:" GridPane.rowIndex="6" />
             <DatePicker fx:id="startDatePicker" onAction="#startDate_action" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <DatePicker fx:id="endDatePicker" onAction="#endDate_action" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="typeTxtField" onAction="#type_action" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Label text="Customer_ID:" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <padding>
@@ -83,8 +81,11 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="customerIdTxtField" onAction="#customerId_action" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <TextField fx:id="userIdTxtField" onAction="#userId_action" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ComboBox fx:id="addContactCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="startAptCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="endAptCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="customerIdCombo" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ComboBox fx:id="userIdCombo" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <Button fx:id="saveBtn" layoutX="170.0" layoutY="508.0" mnemonicParsing="false" onAction="#saveBtn_action" prefHeight="50.0" prefWidth="75.0" text="Save" />

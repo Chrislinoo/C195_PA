@@ -20,6 +20,7 @@ public class Contacts {
 
     /**
      * get contact id method
+     *
      * @return contactId
      */
     public int getContactId() {

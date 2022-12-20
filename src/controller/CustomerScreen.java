@@ -152,7 +152,6 @@ public class CustomerScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Customer> customerObservableList = DBCustomers.getAllCustomers();
-        ObservableList<Divisions> divisionsObservableList = DBDivisions.getAllDivisions();
         customerTable.setItems(DBCustomers.getAllCustomers());
 
         customerId_column.setCellValueFactory(new PropertyValueFactory<>("customerId"));
