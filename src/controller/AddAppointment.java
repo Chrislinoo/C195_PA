@@ -200,14 +200,22 @@ public class AddAppointment implements Initializable {
             }
         }
 
+        //--Gets contact names--
+
         ObservableList<Contacts> contactList = DBContacts.getAllContacts();
-        ObservableList<String> contactsNames = FXCollections.observableArrayList();
+        ObservableList<String> contactsNames = FXCollections.observableArrayList();//Says name because the goal was to have the names pop up but couldnt figure it out so opted for id number instead.
+
+        //--Gets customer ID--
 
         ObservableList<Customer> customerIdList = DBCustomers.getAllCustomers();
         ObservableList<Integer> customerId = FXCollections.observableArrayList();
 
+        //--Gets User ID--
+
         ObservableList<Users> userIdList = DBUsers.getAllUsers();
         ObservableList<Integer> userId = FXCollections.observableArrayList();
+
+        //"abbreviated" for-loop to add into variables the desired outcome being the info that goes into the targeted combo box.
 
         contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
         customerIdList.forEach(customer -> customerId.add(customer.getCustomerId()));//data for customer id combo box

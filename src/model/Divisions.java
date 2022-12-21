@@ -35,4 +35,13 @@ public class Divisions {
     public void setCountryId(int countryId) {
         this.countryId = countryId;
     }
+
+    /**
+     * Used to return the division names in the combo boxes instead of the hex value.
+     * @return
+     */
+    @Override
+    public String toString(){
+        return divisionName;
+    }
 }

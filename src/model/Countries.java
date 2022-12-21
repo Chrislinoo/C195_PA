@@ -46,4 +46,13 @@ public class Countries {
         this.id = id;
         this.name = name;
     }
+
+    /**
+     * Used to return the country names in the combo boxes instead of the hex value.
+     * @return
+     */
+    @Override
+    public String toString(){
+        return name;
+    }
 }

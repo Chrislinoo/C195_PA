@@ -1,18 +1,30 @@
 package controller;
 
+import DBAccess.DBCountries;
+import DBAccess.DBDivisions;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Countries;
+import model.Divisions;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AddCustomer {
+public class AddCustomer implements Initializable {
     Parent scene;
     Stage stage;
 
@@ -23,13 +35,13 @@ public class AddCustomer {
     private Button cancelBtn;
 
     @FXML
-    private ComboBox<?> countryCombo;
+    private ComboBox<Countries> countryCombo;
 
     @FXML
     private TextField customerIdTxtField;
 
     @FXML
-    private ComboBox<?> divisionCombo;
+    private ComboBox<Divisions> divisionCombo;
 
     @FXML
     private TextField nameTxtField;
@@ -84,4 +96,85 @@ public class AddCustomer {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try {
+            ObservableList<Countries> countriesObservableList = DBCountries.getAllCountries();
+            //ObservableList<String> countries = FXCollections.observableArrayList();
+
+            //countriesObservableList.forEach(countries1 -> countries.add(countries1.getName()));
+
+            countryCombo.setItems(countriesObservableList);
+
+//            Countries countrySelected = countryCombo.getSelectionModel().getSelectedItem();
+//            ObservableList<Divisions> divisionsObservableList = DBDivisions.getAllDivisions();
+//            ObservableList<String> divisions = FXCollections.observableArrayList();
+//
+//            divisionsObservableList.forEach(divisions1 -> divisions.add(divisions1.getDivisionName()));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//            ObservableList<String> usDivisions = FXCollections.observableArrayList();
+//            ObservableList<String> ukDivisions = FXCollections.observableArrayList();
+//            ObservableList<String> canadaDivisions = FXCollections.observableArrayList();
+//
+//            divisionsObservableList.forEach(divisions -> {if (divisions.getCountryId() == 1){
+//
+//                usDivisions.add(divisions.getDivisionName());
+//
+//            } else if (divisions.getCountryId() == 2) {
+//
+//                ukDivisions.add(divisions.getDivisionName());
+//
+//            } else if (divisions.getCountryId() == 3) {
+//
+//                canadaDivisions.add(divisions.getDivisionName());
+//
+//            }
+//
+//            });
+
+            } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+
+//            if (countrySelected.equals("U.S")) {
+//
+//                ObservableList<Divisions> usDivisions = DBDivisions.codeOneDivisions();
+//                ObservableList<String> unitedStates = FXCollections.observableArrayList();
+//
+//                usDivisions.forEach(divisions -> unitedStates.add(divisions.getDivisionName()));
+//
+//                divisionCombo.setItems(unitedStates);
+//
+//            }
+        }
+
+    /**
+     * Filters the division combo box to the appropriate choices depending on the selected country. The divisionsObservableList
+     * is calling the codeOneDivisions method and is taking in the Country ID and matching it to the corresponding list of divisions
+     * who share that Country ID value. It is then set to the divisionCombo box.
+     * @param actionEvent
+     */
+    public void onActionCountrySwitch(ActionEvent actionEvent) {
+        ObservableList<Divisions> divisionsObservableList = DBDivisions.codeOneDivisions(countryCombo.getValue().getId());
+
+        divisionCombo.setItems(divisionsObservableList);
+
+
+    }
 }
