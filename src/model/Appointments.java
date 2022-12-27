@@ -185,7 +185,8 @@ public class Appointments {
     }
 
     /**
-     *get contact id
+     * get contact id
+     *
      * @return contactId
      */
     public int getContactId() {

@@ -145,13 +145,30 @@ public class AppointmentScreen implements Initializable {
 
     @FXML
     void updateBtnAction(ActionEvent event) throws IOException {
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/updateAppointment.fxml"));
+            loader.load();
 
-        scene = FXMLLoader.load(getClass().getResource("/view/updateAppointment.fxml"));
+            UpdateAppointment updateAppointment = loader.getController();
+            updateAppointment.appointmentTransfer(appointmentsTable.getSelectionModel().getSelectedIndex(), appointmentsTable.getSelectionModel().getSelectedItem());
 
-        stage.setScene(new Scene(scene));
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
 
-        stage.show();
+
+
+
+
+
+
+        }
+
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

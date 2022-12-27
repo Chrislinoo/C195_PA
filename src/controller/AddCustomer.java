@@ -2,6 +2,7 @@ package controller;
 
 import DBAccess.DBCountries;
 import DBAccess.DBDivisions;
+import Database.JDBC;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class AddCustomer implements Initializable {
@@ -93,7 +97,34 @@ public class AddCustomer implements Initializable {
 
     @FXML
     void saveBtn_action(ActionEvent event) {
+        try {
+            String insertSql = "INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = JDBC.connection.prepareStatement(insertSql);
 
+            int newCustomerId = Integer.parseInt(String.valueOf((int) (Math.random() * 100)));
+
+            ps.setInt(1,newCustomerId);
+            ps.setString(2,nameTxtField.getText());
+            ps.setString(3,addressTxtField.getText());
+            ps.setInt(4, Integer.parseInt(postalTxtField.getText()));
+            ps.setString(5, phoneTxtField.getText());
+            ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(7, "admin");
+            ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setInt(9,1);
+            ps.setInt(10, (divisionCombo.getValue().getDivisionId()));
+
+            ps.execute();
+
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/customerScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -112,20 +143,6 @@ public class AddCustomer implements Initializable {
 //            ObservableList<String> divisions = FXCollections.observableArrayList();
 //
 //            divisionsObservableList.forEach(divisions1 -> divisions.add(divisions1.getDivisionName()));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //            ObservableList<String> usDivisions = FXCollections.observableArrayList();
 //            ObservableList<String> ukDivisions = FXCollections.observableArrayList();
