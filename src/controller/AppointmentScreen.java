@@ -1,6 +1,7 @@
 package controller;
 
 import DBAccess.DBAppointments;
+import Database.JDBC;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,9 @@ import model.Appointments;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
@@ -107,9 +111,36 @@ public class AppointmentScreen implements Initializable {
         stage.show();
     }
 
-    @FXML
-    void deleteBtnAction(ActionEvent event) {
+//    public int delete(int appointment_Id) throws SQLException {
+//        String deleteSql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+//        PreparedStatement ps = JDBC.connection.prepareStatement(deleteSql);
+//
+//        UpdateAppointment deleteAppointment =  new UpdateAppointment();
+//        deleteAppointment.appointmentTransfer(appointmentsTable.getSelectionModel().getSelectedIndex(), appointmentsTable.getSelectionModel().getSelectedItem());
+//
+//        ps.setInt(1,appointment_Id);
+//
+//
+//        int rowsAffected = ps.executeUpdate();
+//
+//        return rowsAffected;
+//    }
 
+    @FXML
+    void deleteBtnAction(ActionEvent event) throws SQLException {
+        try {
+
+            Connection connection = JDBC.connection;
+            int selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem().getAppointmentId();
+
+            DBAppointments.delete(selectedAppointment);
+            ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
+            appointmentsTable.setItems(appointmentsObservableList);
+
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

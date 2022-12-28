@@ -47,4 +47,17 @@ public class DBAppointments {
         return appointmentsList;
     }
 
+    public static int delete(int appointment_Id) throws SQLException {
+        String deleteSql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(deleteSql);
+
+
+        ps.setInt(1,appointment_Id);
+
+
+        int rowsAffected = ps.executeUpdate();
+        ps.close();
+
+        return rowsAffected;
+    }
 }
