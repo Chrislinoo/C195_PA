@@ -14,7 +14,9 @@ public class Customer {
     private String divisionName;
     private int divisionId;
 
-    public Customer(int customerId, String customerName, String customerAddress, String customerPostal, String customerPhone, int divisionId, String divisionName) {
+    private int countryId;
+
+    public Customer(int customerId, String customerName, String customerAddress, String customerPostal, String customerPhone, int divisionId, String divisionName, int countryId) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
@@ -22,6 +24,7 @@ public class Customer {
         this.customerPhone = customerPhone;
         this.divisionName = divisionName;
         this.divisionId = divisionId;
+        this.countryId = countryId;
     }
 
     public String getDivisionName() {

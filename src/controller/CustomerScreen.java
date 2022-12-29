@@ -1,7 +1,9 @@
 package controller;
 
+import DBAccess.DBAppointments;
 import DBAccess.DBCustomers;
 import DBAccess.DBDivisions;
+import Database.JDBC;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,11 +14,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointments;
 import model.Customer;
 import model.Divisions;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class CustomerScreen implements Initializable {
@@ -103,6 +107,20 @@ public class CustomerScreen implements Initializable {
     @FXML
     void deleteBtnAction(ActionEvent event) {
 
+        try {
+
+            Connection connection = JDBC.connection;
+            int selectedCustomer = customerTable.getSelectionModel().getSelectedItem().getCustomerId();
+
+            DBCustomers.delete(selectedCustomer);
+            ObservableList<Customer> customerObservableList = DBCustomers.getAllCustomers();
+            customerTable.setItems(customerObservableList);
+
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
@@ -140,11 +158,8 @@ public class CustomerScreen implements Initializable {
     @FXML
     void updateBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-
         scene = FXMLLoader.load(getClass().getResource("/view/updateCustomer.fxml"));
-
         stage.setScene(new Scene(scene));
-
         stage.show();
 
     }
@@ -166,4 +181,6 @@ public class CustomerScreen implements Initializable {
 
         customerTable.setItems(customerObservableList);
     }
+
+
 }

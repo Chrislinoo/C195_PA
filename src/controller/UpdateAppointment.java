@@ -143,7 +143,7 @@ public class UpdateAppointment implements Initializable{
         this.aptIdTxt.setText(String.valueOf(appointments.getAppointmentId()));
         this.descriptionTxt.setText(appointments.getAptDescription());
         this.contactCombo.setValue(appointments.getContactId());
-        this.startTimeCombo.setValue(appointments.getAptStartTime());
+        this.startTimeCombo.setValue(appointments.getAptStartTime().toLocalTime());//---HERREEEEEE OJO---
         this.startDatePicker.setValue(LocalDate.from(appointments.getAptStartTime()));
         this.endDatePicker.setValue(LocalDate.from(appointments.getAptEndTime()));
         this.endTimeCombo.setValue(appointments.getAptEndTime());
@@ -165,8 +165,8 @@ public class UpdateAppointment implements Initializable{
         //Had it set as LocalDateTime however it kept causing my program to crash
         //so i tried using LocalTime since im only using times for the variables to add on to the combo box
         //and it worked for now. Need to keep an eye out if it causes any issues later on.
-        LocalTime startingAppointment = LocalTime.from(LocalDateTime.MIN.plusHours(8));
-        LocalTime endingAppointment = LocalTime.from(LocalDateTime.MAX.minusHours(1).minusMinutes(30));
+        LocalTime startingAppointment = LocalTime.of(8,0);
+        LocalTime endingAppointment = LocalTime.of(22,0);
 
         if (!startingAppointment.equals(0) || !endingAppointment.equals(0)){
             while(startingAppointment.isBefore(endingAppointment)){

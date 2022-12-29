@@ -32,7 +32,7 @@ public class DBAppointments {
                 String aptDescription = rs.getString("Description");
                 String aptLocation = rs.getString("Location");
                 String aptType = rs.getString("Type");
-                LocalDateTime aptStartTime = rs.getTimestamp("Start").toLocalDateTime();//Test to see if this works, last method did not.
+                LocalDateTime aptStartTime = rs.getTimestamp("Start").toLocalDateTime();//Test to see if this works, last method did not.--Prof. said this good! Test with the VM though
                 LocalDateTime aptEndTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerId = rs.getInt("Customer_ID");
                 int userId = rs.getInt("User_ID");

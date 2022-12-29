@@ -26,6 +26,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -119,13 +120,17 @@ public class AddAppointment implements Initializable {
 
             int newAppointmentId = Integer.parseInt(String.valueOf((int) (Math.random() * 100)));
 
+            LocalDate startDate = startDatePicker.getValue();
+            LocalTime startTime = LocalTime.parse(startAptCombo.getValue());//--TRANSFER THESE LINES OF CODE TO ADD CUSTOMER AS WELL--
+            LocalDateTime startDateTime = LocalDateTime.of(startDate,startTime);
+
             ps.setInt(1, newAppointmentId);
             ps.setString(2, titleTxtField.getText());
             ps.setString(3, descriptionTxtField.getText());
             ps.setString(4, locationTxtField.getText());
             ps.setString(5, typeTxtField.getText());
-            ps.setTimestamp(6, Timestamp.valueOf(startDatePicker.getValue().atStartOfDay()));//Figure this out
-            ps.setTimestamp(7, Timestamp.valueOf(endDatePicker.getValue().atStartOfDay()));//Figure this out
+            ps.setTimestamp(6, Timestamp.valueOf(startDateTime));//Figure this out--Fixed
+            ps.setTimestamp(7, Timestamp.valueOf(endDatePicker.getValue().atStartOfDay()));//Figure this out--Fixed
             ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(9, "admin");
             ps.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now()));

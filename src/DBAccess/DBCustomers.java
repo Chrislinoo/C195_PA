@@ -36,14 +36,29 @@ public class DBCustomers {
                 String customerPhone = rs.getString("Phone");
                 int divisionId = rs.getInt("Division_ID");
                 String divisionName = rs.getString("Division");
+                int countryId = rs.getInt("Country_ID");
 
-                Customer customer = new Customer(customerId, customerName, customerAddress, customerPostal, customerPhone, divisionId, divisionName);
+                Customer customer = new Customer(customerId, customerName, customerAddress, customerPostal, customerPhone, divisionId, divisionName, countryId);
                 customersList.add(customer);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return customersList;
+    }
+
+    public static int delete(int customer_Id) throws SQLException {
+        String deleteSql = "DELETE FROM customers WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(deleteSql);
+
+
+        ps.setInt(1,customer_Id);
+
+
+        int rowsAffected = ps.executeUpdate();
+        ps.close();
+
+        return rowsAffected;
     }
 
 
