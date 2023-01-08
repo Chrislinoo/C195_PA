@@ -107,11 +107,19 @@ public class UpdateAppointment implements Initializable{
             String updateSql = "UPDATE appointments SET Appointment_ID = ?, Description = ?, Contact_ID = ?, Start = ?, End = ?, Title = ?, Location = ?, Type = ?, Create_Date = ?, Created_By = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ? WHERE Appointment_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(updateSql);
 
+            LocalDate startDate = startDatePicker.getValue();
+            LocalTime startTime = LocalTime.parse(startTimeCombo.getValue().toString());
+            LocalDateTime startDateTime = LocalDateTime.of(startDate,startTime);
+
+            LocalDate endDate = endDatePicker.getValue();
+            LocalTime endTime = LocalTime.parse(endTimeCombo.getValue().toString());
+            LocalDateTime endDateTime = LocalDateTime.of(endDate,endTime);
+
             ps.setInt(1, Integer.parseInt(aptIdTxt.getText()));
             ps.setString(2,descriptionTxt.getText());
             ps.setInt(3, Integer.parseInt(contactCombo.getValue().toString()));
-            ps.setTimestamp(4, Timestamp.valueOf(startDatePicker.getValue().atStartOfDay()));//Needs work, not understanding
-            ps.setTimestamp(5,Timestamp.valueOf(endDatePicker.getValue().atStartOfDay()));//Needs work, not understanding
+            ps.setTimestamp(4, Timestamp.valueOf(startDateTime));//--FIXED
+            ps.setTimestamp(5,Timestamp.valueOf(endDateTime));//--FIXED
             ps.setString(6,titleTxt.getText());
             ps.setString(7,locationTxt.getText());
             ps.setString(8,typeTxt.getText());
@@ -146,7 +154,7 @@ public class UpdateAppointment implements Initializable{
         this.startTimeCombo.setValue(appointments.getAptStartTime().toLocalTime());//---HERREEEEEE OJO---
         this.startDatePicker.setValue(LocalDate.from(appointments.getAptStartTime()));
         this.endDatePicker.setValue(LocalDate.from(appointments.getAptEndTime()));
-        this.endTimeCombo.setValue(appointments.getAptEndTime());
+        this.endTimeCombo.setValue(appointments.getAptEndTime().toLocalTime());
         this.titleTxt.setText(appointments.getAptTitle());
         this.locationTxt.setText(appointments.getAptLocation());
         this.typeTxt.setText(appointments.getAptType());

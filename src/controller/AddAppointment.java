@@ -124,17 +124,21 @@ public class AddAppointment implements Initializable {
             LocalTime startTime = LocalTime.parse(startAptCombo.getValue());//--TRANSFER THESE LINES OF CODE TO ADD CUSTOMER AS WELL--
             LocalDateTime startDateTime = LocalDateTime.of(startDate,startTime);
 
+            LocalDate endDate = endDatePicker.getValue();
+            LocalTime endTime = LocalTime.parse(endAptCombo.getValue());
+            LocalDateTime endDateTime = LocalDateTime.of(endDate,endTime);
+
             ps.setInt(1, newAppointmentId);
             ps.setString(2, titleTxtField.getText());
             ps.setString(3, descriptionTxtField.getText());
             ps.setString(4, locationTxtField.getText());
             ps.setString(5, typeTxtField.getText());
             ps.setTimestamp(6, Timestamp.valueOf(startDateTime));//Figure this out--Fixed
-            ps.setTimestamp(7, Timestamp.valueOf(endDatePicker.getValue().atStartOfDay()));//Figure this out--Fixed
+            ps.setTimestamp(7, Timestamp.valueOf(endDateTime));//Figure this out--Fixed
             ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(9, "admin");
             ps.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setInt(11, 1);
+            ps.setString(11, "admin");
             //ps.setInt(12,Integer.parseInt(customerIdTxtField.getText()));original
             ps.setInt(12, Integer.parseInt(customerIdCombo.getValue().toString()));
             //ps.setInt(13,Integer.parseInt(userIdTxtField.getText()));original

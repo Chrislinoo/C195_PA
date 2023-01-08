@@ -157,10 +157,23 @@ public class CustomerScreen implements Initializable {
 
     @FXML
     void updateBtnAction(ActionEvent event) throws IOException {
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/updateCustomer.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/updateCustomer.fxml"));
+            loader.load();
+
+            UpdateCustomer updateCustomer = loader.getController();
+            updateCustomer.customerTransfer(customerTable.getSelectionModel().getSelectedIndex(),customerTable.getSelectionModel().getSelectedItem());
+
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

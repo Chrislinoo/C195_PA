@@ -111,7 +111,7 @@ public class AddCustomer implements Initializable {
             ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(7, "admin");
             ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setInt(9,1);
+            ps.setString(9,"admin");
             ps.setInt(10, (divisionCombo.getValue().getDivisionId()));
 
             ps.execute();

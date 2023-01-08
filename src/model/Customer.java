@@ -31,6 +31,14 @@ public class Customer {
         return divisionName;
     }
 
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
+    }
+
+    public int getCountryId() {
+        return countryId;
+    }
+
     public void setDivisionName(String divisionName) {
         this.divisionName = divisionName;
     }
