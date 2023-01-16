@@ -21,6 +21,7 @@ import model.Divisions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomerScreen implements Initializable {
@@ -108,13 +109,18 @@ public class CustomerScreen implements Initializable {
     void deleteBtnAction(ActionEvent event) {
 
         try {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Continuing will delete the customer and all associated appointments, do you wish to continue?");
+            alert.setTitle("Delete");
+            Optional<ButtonType> result = alert.showAndWait();
 
             Connection connection = JDBC.connection;
             int selectedCustomer = customerTable.getSelectionModel().getSelectedItem().getCustomerId();
 
+            if (result.isPresent() && result.get() == ButtonType.OK){
             DBCustomers.delete(selectedCustomer);
             ObservableList<Customer> customerObservableList = DBCustomers.getAllCustomers();
             customerTable.setItems(customerObservableList);
+            }
 
         }
         catch (Exception e) {
@@ -128,6 +134,11 @@ public class CustomerScreen implements Initializable {
         System.exit(0);
     }
 
+    /**
+     * Redirects user to the Reports page.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void reportsBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();

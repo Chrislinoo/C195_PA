@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
-public class UpdateAppointment implements Initializable{
+public class UpdateAppointment implements Initializable {
 
     public ComboBox contactCombo;
     public ComboBox startTimeCombo;
@@ -87,6 +87,11 @@ public class UpdateAppointment implements Initializable{
     private Appointments selectedAppointment;
     private int selectedIndex;
 
+    /**
+     * Cancels the appointment update and redirects user to the main appointment screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void cancelBtn_Action(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -100,6 +105,10 @@ public class UpdateAppointment implements Initializable{
         stage.show();
     }
 
+    /**
+     * Updates all the desired information into the database using the UPDATE sql statement.
+     * @param event
+     */
     @FXML
     void saveBtn_Action(ActionEvent event) {
 
@@ -109,42 +118,47 @@ public class UpdateAppointment implements Initializable{
 
             LocalDate startDate = startDatePicker.getValue();
             LocalTime startTime = LocalTime.parse(startTimeCombo.getValue().toString());
-            LocalDateTime startDateTime = LocalDateTime.of(startDate,startTime);
+            LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
 
             LocalDate endDate = endDatePicker.getValue();
             LocalTime endTime = LocalTime.parse(endTimeCombo.getValue().toString());
-            LocalDateTime endDateTime = LocalDateTime.of(endDate,endTime);
+            LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
 
             ps.setInt(1, Integer.parseInt(aptIdTxt.getText()));
-            ps.setString(2,descriptionTxt.getText());
+            ps.setString(2, descriptionTxt.getText());
             ps.setInt(3, Integer.parseInt(contactCombo.getValue().toString()));
+//            ps.setString(3, contactCombo.getValue().toString());
             ps.setTimestamp(4, Timestamp.valueOf(startDateTime));//--FIXED
-            ps.setTimestamp(5,Timestamp.valueOf(endDateTime));//--FIXED
-            ps.setString(6,titleTxt.getText());
-            ps.setString(7,locationTxt.getText());
-            ps.setString(8,typeTxt.getText());
-            ps.setTimestamp(9,Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(10,"admin");
-            ps.setTimestamp(11,Timestamp.valueOf(LocalDateTime.now()));
+            ps.setTimestamp(5, Timestamp.valueOf(endDateTime));//--FIXED
+            ps.setString(6, titleTxt.getText());
+            ps.setString(7, locationTxt.getText());
+            ps.setString(8, typeTxt.getText());
+            ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(10, "admin");
+            ps.setTimestamp(11, Timestamp.valueOf(LocalDateTime.now()));
             ps.setInt(12, Integer.parseInt(userCombo.getValue().toString()));
             ps.setInt(13, Integer.parseInt(customerCombo.getValue().toString()));
-            ps.setInt(14,Integer.parseInt(userCombo.getValue().toString()));
+            ps.setInt(14, Integer.parseInt(userCombo.getValue().toString()));
             ps.setInt(15, Integer.parseInt(aptIdTxt.getText()));
 
             ps.execute();
 
-            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/appointmentScreen.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void appointmentTransfer(int index, Appointments appointments){
+    /**
+     * Method created to be able to load the appointment information to their designated text fields/combo boxes.
+     * @param index
+     * @param appointments
+     */
+    public void appointmentTransfer(int index, Appointments appointments) {
         selectedAppointment = appointments;
         selectedIndex = index;
 
@@ -161,57 +175,72 @@ public class UpdateAppointment implements Initializable{
         this.customerCombo.setValue(appointments.getCustomerId());
         this.userCombo.setValue(appointments.getUserId());
 
-
-
+//        if (appointments.getContactId() == 1) {
+//            this.contactCombo.setAccessibleText("Anika Costa");
+//        } else if (appointments.getContactId() == 2) {
+//            this.contactCombo.setValue("Daniel Garcia");
+//        } else if (appointments.getContactId() == 3) {
+//            this.contactCombo.setValue("Li Lee");
+//
+//
+//        }
     }
 
 
+    /**
+     * Initializes the combo boxes needed for time and contact, user, and customer information. Using a for-loop to add
+     * into observable array lists and then using that to populate the combo boxes.
+      * @param url
+     * @param resourceBundle
+     */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<String> appointmentIntervals = FXCollections.observableArrayList();
+        public void initialize (URL url, ResourceBundle resourceBundle){
+            ObservableList<String> appointmentIntervals = FXCollections.observableArrayList();
 
-        //Had it set as LocalDateTime however it kept causing my program to crash
-        //so i tried using LocalTime since im only using times for the variables to add on to the combo box
-        //and it worked for now. Need to keep an eye out if it causes any issues later on.
-        LocalTime startingAppointment = LocalTime.of(8,0);
-        LocalTime endingAppointment = LocalTime.of(22,0);
+            //Had it set as LocalDateTime however it kept causing my program to crash
+            //so i tried using LocalTime since im only using times for the variables to add on to the combo box
+            //and it worked for now. Need to keep an eye out if it causes any issues later on.
+            LocalTime startingAppointment = LocalTime.of(8, 0);
+            LocalTime endingAppointment = LocalTime.of(22, 0);
 
-        if (!startingAppointment.equals(0) || !endingAppointment.equals(0)){
-            while(startingAppointment.isBefore(endingAppointment)){
-                appointmentIntervals.add(String.valueOf(startingAppointment));
-                startingAppointment = startingAppointment.plusMinutes(30);
+            if (!startingAppointment.equals(0) || !endingAppointment.equals(0)) {
+                while (startingAppointment.isBefore(endingAppointment)) {
+                    appointmentIntervals.add(String.valueOf(startingAppointment));
+                    startingAppointment = startingAppointment.plusMinutes(30);
+                }
             }
-        }
 
-        //--Gets contact names--
+            //--Gets contact names--
 
-        ObservableList<Contacts> contactList = DBContacts.getAllContacts();
-        ObservableList<String> contactsNames = FXCollections.observableArrayList();//Says name because the goal was to have the names pop up but couldnt figure it out so opted for id number instead.
+            ObservableList<Contacts> contactList = DBContacts.getAllContacts();
+            ObservableList<String> contactsNames = FXCollections.observableArrayList();//Says name because the goal was to have the names pop up but couldnt figure it out so opted for id number instead.
 
-        //--Gets customer ID--
+            //--Gets customer ID--
 
-        ObservableList<Customer> customerIdList = DBCustomers.getAllCustomers();
-        ObservableList<Integer> customerId = FXCollections.observableArrayList();
+            ObservableList<Customer> customerIdList = DBCustomers.getAllCustomers();
+            ObservableList<Integer> customerId = FXCollections.observableArrayList();
 
-        //--Gets User ID--
+            //--Gets User ID--
 
-        ObservableList<Users> userIdList = DBUsers.getAllUsers();
-        ObservableList<Integer> userId = FXCollections.observableArrayList();
+            ObservableList<Users> userIdList = DBUsers.getAllUsers();
+            ObservableList<Integer> userId = FXCollections.observableArrayList();
 
-        //"abbreviated" for-loop to add into variables the desired outcome being the info that goes into the targeted combo box.
+            //"abbreviated" for-loop to add into variables the desired outcome being the info that goes into the targeted combo box.
 
         contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
-        customerIdList.forEach(customer -> customerId.add(customer.getCustomerId()));//data for customer id combo box
-        userIdList.forEach(users -> userId.add(users.getUserId()));//data for user id list
+//            contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactName())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
+            customerIdList.forEach(customer -> customerId.add(customer.getCustomerId()));//data for customer id combo box
+            userIdList.forEach(users -> userId.add(users.getUserId()));//data for user id list
 
-        startTimeCombo.setItems(appointmentIntervals);
-        endTimeCombo.setItems(appointmentIntervals);
+            startTimeCombo.setItems(appointmentIntervals);
+            endTimeCombo.setItems(appointmentIntervals);
 
-        contactCombo.setItems(contactsNames);
-        customerCombo.setItems(customerId);
-        userCombo.setItems(userId);
+            contactCombo.setItems(contactsNames);
+            customerCombo.setItems(customerId);
+            userCombo.setItems(userId);
 
-        startTimeCombo.setVisibleRowCount(6);
-        endTimeCombo.setVisibleRowCount(6);
+            startTimeCombo.setVisibleRowCount(6);
+            endTimeCombo.setVisibleRowCount(6);
+        }
     }
-}
+

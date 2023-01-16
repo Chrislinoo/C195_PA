@@ -17,6 +17,7 @@ import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 public class Login implements Initializable {
@@ -27,6 +28,8 @@ public class Login implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        zoneIdLabel.setText(String.valueOf(zoneId));//Sets the zone ID to the label.
 
     }
 

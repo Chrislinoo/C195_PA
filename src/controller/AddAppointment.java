@@ -76,6 +76,11 @@ public class AddAppointment implements Initializable {
 
     }
 
+    /**
+     * Cancels the addition of adding an appointment to the database and returns user to the main appointment screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void cancelBtn_action(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -112,6 +117,11 @@ public class AddAppointment implements Initializable {
 
     }
 
+    /**
+     * Using bind variables this method inserts appointments into the database.
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void saveBtn_action(ActionEvent event) throws SQLException {
         try {
@@ -192,6 +202,12 @@ public class AddAppointment implements Initializable {
     private ComboBox<Integer> userIdCombo;
 
 
+    /**
+     * Initializes the combo boxes needed for time and contact, user, and customer information. Using a for-loop to add
+     * into observable array lists and then using that to populate the combo boxes.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<String> appointmentIntervals = FXCollections.observableArrayList();
@@ -227,6 +243,7 @@ public class AddAppointment implements Initializable {
         //"abbreviated" for-loop to add into variables the desired outcome being the info that goes into the targeted combo box.
 
         contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
+//        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactName())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
         customerIdList.forEach(customer -> customerId.add(customer.getCustomerId()));//data for customer id combo box
         userIdList.forEach(users -> userId.add(users.getUserId()));//data for user id list
 
