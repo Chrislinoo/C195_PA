@@ -1,5 +1,9 @@
 package model;
 
+import DBAccess.DBAppointments;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDateTime;
 
 public class Appointments {
@@ -38,6 +42,10 @@ public class Appointments {
         this.customerId = customerId;
         this.userId = userId;
         this.contactId = contactId;
+    }
+
+    public Appointments(LocalDateTime aptStartTime) {
+        this.aptStartTime = aptStartTime;
     }
 
     /**
@@ -200,4 +208,13 @@ public class Appointments {
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
+
+//    public static ObservableList<Appointments> contactLookup(int contactId){
+//        ObservableList<Appointments> filteredAppointment = FXCollections.observableArrayList();
+//        for (Appointments appointments : DBAppointments.getAllAppointments()){
+//            if (appointments.getContactId())
+//        }
+
+
 }
+

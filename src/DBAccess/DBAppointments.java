@@ -60,4 +60,19 @@ public class DBAppointments {
 
         return rowsAffected;
     }
+
+//    public static ObservableList<Month> monthCount() throws SQLException {
+//        ObservableList<Appointments> appointments = FXCollections.observableArrayList();
+//        String monthSql = "SELECT COUNT(*), monthName(Start) FROM appointments";
+//        PreparedStatement ps = JDBC.connection.prepareStatement(monthSql);
+//        ResultSet rs = ps.executeQuery();
+//
+//        while (rs.next()){
+//            LocalDateTime aptStartTime = rs.getTimestamp("Start").toLocalDateTime();//Test to see if this works, last method did not.--Prof. said this good! Test with the VM though
+//
+//            Month appointment = new Month(aptStartTime);
+//            appointments.add(appointment);
+//        }
+//        return appointments;
+//    }
 }

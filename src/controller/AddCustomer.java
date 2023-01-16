@@ -132,54 +132,15 @@ public class AddCustomer implements Initializable {
 
         try {
             ObservableList<Countries> countriesObservableList = DBCountries.getAllCountries();
-            //ObservableList<String> countries = FXCollections.observableArrayList();
-
-            //countriesObservableList.forEach(countries1 -> countries.add(countries1.getName()));
 
             countryCombo.setItems(countriesObservableList);
 
-//            Countries countrySelected = countryCombo.getSelectionModel().getSelectedItem();
-//            ObservableList<Divisions> divisionsObservableList = DBDivisions.getAllDivisions();
-//            ObservableList<String> divisions = FXCollections.observableArrayList();
-//
-//            divisionsObservableList.forEach(divisions1 -> divisions.add(divisions1.getDivisionName()));
-
-//            ObservableList<String> usDivisions = FXCollections.observableArrayList();
-//            ObservableList<String> ukDivisions = FXCollections.observableArrayList();
-//            ObservableList<String> canadaDivisions = FXCollections.observableArrayList();
-//
-//            divisionsObservableList.forEach(divisions -> {if (divisions.getCountryId() == 1){
-//
-//                usDivisions.add(divisions.getDivisionName());
-//
-//            } else if (divisions.getCountryId() == 2) {
-//
-//                ukDivisions.add(divisions.getDivisionName());
-//
-//            } else if (divisions.getCountryId() == 3) {
-//
-//                canadaDivisions.add(divisions.getDivisionName());
-//
-//            }
-//
-//            });
 
             } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
-
-//            if (countrySelected.equals("U.S")) {
-//
-//                ObservableList<Divisions> usDivisions = DBDivisions.codeOneDivisions();
-//                ObservableList<String> unitedStates = FXCollections.observableArrayList();
-//
-//                usDivisions.forEach(divisions -> unitedStates.add(divisions.getDivisionName()));
-//
-//                divisionCombo.setItems(unitedStates);
-//
-//            }
-        }
+    }
 
     /**
      * Filters the division combo box to the appropriate choices depending on the selected country. The divisionsObservableList

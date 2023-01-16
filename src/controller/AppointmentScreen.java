@@ -2,6 +2,7 @@ package controller;
 
 import DBAccess.DBAppointments;
 import Database.JDBC;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,8 +21,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller for the appointmentScreen.fxml file. It's responsible for all the elements in the screen.
+ */
 public class AppointmentScreen implements Initializable {
 
     Parent scene;
@@ -29,6 +35,14 @@ public class AppointmentScreen implements Initializable {
 
     @FXML
     private Button addAppointmentBtn;
+    @FXML
+    private ToggleGroup filter;
+    @FXML
+    private RadioButton weekRadioButton;
+    @FXML
+    private RadioButton monthRadioButton;
+    @FXML
+    private RadioButton allRadioButton;
 
     @FXML
     private TableView<Appointments> appointmentsTable;
@@ -89,6 +103,11 @@ public class AppointmentScreen implements Initializable {
     @FXML
     private SplitMenuButton viewBySplit;
 
+    /**
+     * Redirects user to the add appointment screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void addBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -96,10 +115,16 @@ public class AppointmentScreen implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/addAppointment.fxml"));
 
         stage.setScene(new Scene(scene));
+        stage.setTitle("Add Appointment");
 
         stage.show();
     }
 
+    /**
+     * Redirects user to the Customers page.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void customersBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -107,47 +132,67 @@ public class AppointmentScreen implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/customerScreen.fxml"));
 
         stage.setScene(new Scene(scene));
+        stage.setTitle("Customer Screen");
 
         stage.show();
     }
 
-//    public int delete(int appointment_Id) throws SQLException {
-//        String deleteSql = "DELETE FROM appointments WHERE Appointment_ID = ?";
-//        PreparedStatement ps = JDBC.connection.prepareStatement(deleteSql);
-//
-//        UpdateAppointment deleteAppointment =  new UpdateAppointment();
-//        deleteAppointment.appointmentTransfer(appointmentsTable.getSelectionModel().getSelectedIndex(), appointmentsTable.getSelectionModel().getSelectedItem());
-//
-//        ps.setInt(1,appointment_Id);
-//
-//
-//        int rowsAffected = ps.executeUpdate();
-//
-//        return rowsAffected;
-//    }
 
+    /**
+     * Deletes a selected appointment. The event starts when the delete button is clicked depending on if there was already
+     * a selection made. If there was not then it should catch an error message. The deletion is made by appointment ID.
+     * Which will also be presented in the confirmation warning as well as the type of appointment.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void deleteBtnAction(ActionEvent event) throws SQLException {
+
+
+
         try {
+            int selectionID = appointmentsTable.getSelectionModel().getSelectedItem().getAppointmentId();
+            String selectionType = appointmentsTable.getSelectionModel().getSelectedItem().getAptType();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete the appointment ID: " +selectionID+ " of type: " +selectionType+ ", do you wish to continue?");
+            alert.setTitle("Delete");
+            Optional<ButtonType> result = alert.showAndWait();
 
             Connection connection = JDBC.connection;
             int selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem().getAppointmentId();
 
-            DBAppointments.delete(selectedAppointment);
-            ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
-            appointmentsTable.setItems(appointmentsObservableList);
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                DBAppointments.delete(selectedAppointment);
+                ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
+                appointmentsTable.setItems(appointmentsObservableList);
+            }
 
+        }
+        catch (NullPointerException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Select an appointment first");
+            alert.showAndWait();
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Exits and closes the program.
+     * @param event
+     */
     @FXML
     void exitBtnAction(ActionEvent event) {
         System.exit(0);
     }
 
+    /**
+     * Redirects the user to the Reports page.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void reportsBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -155,25 +200,18 @@ public class AppointmentScreen implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/reportsContact.fxml"));
 
         stage.setScene(new Scene(scene));
+        stage.setTitle("Reports");
 
         stage.show();
     }
 
-    @FXML
-    void splitMenuAll(ActionEvent event) {
-
-    }
-
-    @FXML
-    void splitMenuMonth(ActionEvent event) {
-
-    }
-
-    @FXML
-    void splitmenuWeek(ActionEvent event) {
-
-    }
-
+    /**
+     * Updates a selected appointment. The event starts when the update button is clicked depending on if there was already
+     * a selection made. If there was not then it should catch an error message. It uses the appointmentTransfer method
+     * which takes in (index, appointment) as parameters.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void updateBtnAction(ActionEvent event) throws IOException {
         try {
@@ -187,14 +225,15 @@ public class AppointmentScreen implements Initializable {
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));
+            stage.setTitle("Update Appointment");
             stage.show();
 
-
-
-
-
-
-
+        }
+        catch (NullPointerException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Select an appointment first");
+            alert.showAndWait();
         }
 
         catch (IOException e) {
@@ -203,6 +242,12 @@ public class AppointmentScreen implements Initializable {
 
     }
 
+    /**
+     * Initializes the tableview with the necessary information. The data is pulled from the getAllAppointments method
+     * in the DBAppointments java class.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
@@ -224,4 +269,61 @@ public class AppointmentScreen implements Initializable {
 
     }
 
+    /**
+     * Filters table to show appointments within a months time frame of current time.
+     * @param actionEvent
+     */
+    public void monthRadioButton_Action(ActionEvent actionEvent) {
+        ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
+        ObservableList<Appointments> appointmentsByMonth = FXCollections.observableArrayList();
+        LocalDateTime startOfMonth = LocalDateTime.now().minusMonths(1);
+        LocalDateTime endOfMonth = LocalDateTime.now().plusMonths(1);
+
+        if (appointmentsObservableList != null){
+            appointmentsObservableList.forEach(appointments -> {
+                if (appointments.getAptEndTime().isAfter(startOfMonth) && appointments.getAptEndTime().isBefore(endOfMonth)){
+                    appointmentsByMonth.add(appointments);
+                }//sets in the appointmentsByMonth list with all the appointments that is after the start of the month and before the end of the month.
+                appointmentsTable.setItems(appointmentsByMonth);
+            });
+        }
+
+    }
+
+    /**
+     * Filters table to show appointments within a weeks time frame of current time.
+     * @param actionEvent
+     */
+    public void weekRadioButton_Action(ActionEvent actionEvent) {
+        ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
+        ObservableList<Appointments> appointmentsByWeek = FXCollections.observableArrayList();
+        LocalDateTime startOfWeek =LocalDateTime.now().minusWeeks(1);
+        LocalDateTime endOfWeek = LocalDateTime.now().plusWeeks(1);
+
+        if (appointmentsObservableList != null) {
+            appointmentsObservableList.forEach(appointments -> {
+                if (appointments.getAptEndTime().isAfter(startOfWeek) && appointments.getAptEndTime().isBefore(endOfWeek)){
+                    appointmentsByWeek.add(appointments);
+                }//sets in the appointmentsByWeek list with all the appointments that is after the start of the week and before the end of the week.
+                appointmentsTable.setItems(appointmentsByWeek);
+            });
+        }
+    }
+
+    /**
+     * Resets table to show all data, regardless of time frame.
+     * @param actionEvent
+     */
+    public void allRadioButton_Action(ActionEvent actionEvent) {
+        ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
+
+        if (appointmentsObservableList != null){
+            appointmentsTable.setItems(appointmentsObservableList);//sets it to normal
+        }
+    }
+
+
+
 }
+
+

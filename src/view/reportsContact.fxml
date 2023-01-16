@@ -3,15 +3,15 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsContact">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsContact">
    <children>
-      <TableView layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="750.0">
+      <TableView fx:id="contactsTableView" layoutX="14.0" layoutY="49.0" prefHeight="400.0" prefWidth="750.0">
         <columns>
           <TableColumn fx:id="appointmentId_column" prefWidth="100.0" text="Appointment ID" />
           <TableColumn fx:id="title_column" prefWidth="109.0" text="Title" />
@@ -22,15 +22,30 @@
             <TableColumn fx:id="customerId_column" prefWidth="90.0" text="Customer ID" />
         </columns>
       </TableView>
-      <ComboBox fx:id="filterCombo" layoutX="794.0" layoutY="141.0" onAction="#filterCombo_action" prefWidth="150.0" />
-      <RadioButton fx:id="typeRadioBtn" layoutX="794.0" layoutY="39.0" mnemonicParsing="false" onAction="#typeRadio_action" text="Type">
-         <toggleGroup>
-            <ToggleGroup fx:id="filter" />
-         </toggleGroup></RadioButton>
-      <RadioButton fx:id="monthRadioBtn" layoutX="794.0" layoutY="69.0" mnemonicParsing="false" onAction="#monthRadio_action" text="Month" toggleGroup="$filter" />
-      <RadioButton fx:id="customerRadioBtn" layoutX="794.0" layoutY="99.0" mnemonicParsing="false" onAction="#customerRadio_action" text="Customer ID" toggleGroup="$filter" />
-      <Button fx:id="exitBtn" layoutX="906.0" layoutY="540.0" mnemonicParsing="false" onAction="#exitBtn_action" prefHeight="46.0" prefWidth="80.0" text="Cancel" />
-      <Label layoutX="14.0" layoutY="569.0" text="Reports Page" />
-      <Label layoutX="596.0" layoutY="414.0" text="Total Number of Customers: ##" />
+      <ComboBox fx:id="filterCombo" layoutX="614.0" layoutY="14.0" onAction="#filterCombo_action" prefWidth="150.0" promptText="Select Contact" />
+      <Button fx:id="exitBtn" layoutX="1106.0" layoutY="740.0" mnemonicParsing="false" onAction="#exitBtn_action" prefHeight="46.0" prefWidth="80.0" text="Cancel" />
+      <Label layoutX="14.0" layoutY="769.0" text="Reports Page" />
+      <Label layoutX="14.0" layoutY="717.0" prefHeight="46.0" prefWidth="186.0" text="Total Number of Customers: ">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <VBox layoutX="805.0" layoutY="49.0" prefHeight="400.0" prefWidth="381.0">
+         <children>
+            <TableView fx:id="aptTypeMini" prefHeight="209.0" prefWidth="381.0">
+              <columns>
+                <TableColumn fx:id="appointmentTypeColumn" prefWidth="190.0" text="Appointment Type" />
+                <TableColumn fx:id="appointmentTypeColumn_Total" minWidth="0.0" prefWidth="190.0" text="Total" />
+              </columns>
+            </TableView>
+            <TableView fx:id="aptMonthMini" prefHeight="209.0" prefWidth="381.0">
+              <columns>
+                <TableColumn fx:id="appointmentPerMonthColumn" prefWidth="190.0" text="Appointments per Month" />
+                <TableColumn fx:id="appointmentPerMonthColumn_Total" prefWidth="190.0" text="Total" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+      <Button fx:id="totalGeneratorButton" layoutX="200.0" layoutY="728.0" mnemonicParsing="false" onAction="#generateTotal_Action" text="Generate Total" />
+      <Label fx:id="generatedTotalLabel" layoutX="315.0" layoutY="732.0" text="..." />
    </children>
 </AnchorPane>
