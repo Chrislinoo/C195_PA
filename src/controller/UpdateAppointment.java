@@ -26,6 +26,7 @@ import model.Users;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -126,8 +127,8 @@ public class UpdateAppointment implements Initializable {
 
             ps.setInt(1, Integer.parseInt(aptIdTxt.getText()));
             ps.setString(2, descriptionTxt.getText());
-            ps.setInt(3, Integer.parseInt(contactCombo.getValue().toString()));
-//            ps.setString(3, contactCombo.getValue().toString());
+//            ps.setInt(3, Integer.parseInt(contactCombo.getValue().toString()));
+            ps.setInt(3, DBContacts.matchingContact(String.valueOf(contactCombo.getValue())));
             ps.setTimestamp(4, Timestamp.valueOf(startDateTime));//--FIXED
             ps.setTimestamp(5, Timestamp.valueOf(endDateTime));//--FIXED
             ps.setString(6, titleTxt.getText());
@@ -158,13 +159,14 @@ public class UpdateAppointment implements Initializable {
      * @param index
      * @param appointments
      */
-    public void appointmentTransfer(int index, Appointments appointments) {
+    public void appointmentTransfer(int index, Appointments appointments) throws SQLException {
         selectedAppointment = appointments;
         selectedIndex = index;
 
         this.aptIdTxt.setText(String.valueOf(appointments.getAppointmentId()));
         this.descriptionTxt.setText(appointments.getAptDescription());
-        this.contactCombo.setValue(appointments.getContactId());
+//        this.contactCombo.setValue(appointments.getContactId());
+        this.contactCombo.setValue(DBContacts.idToName(appointments.getContactId()));
         this.startTimeCombo.setValue(appointments.getAptStartTime().toLocalTime());//---HERREEEEEE OJO---
         this.startDatePicker.setValue(LocalDate.from(appointments.getAptStartTime()));
         this.endDatePicker.setValue(LocalDate.from(appointments.getAptEndTime()));
@@ -175,15 +177,6 @@ public class UpdateAppointment implements Initializable {
         this.customerCombo.setValue(appointments.getCustomerId());
         this.userCombo.setValue(appointments.getUserId());
 
-//        if (appointments.getContactId() == 1) {
-//            this.contactCombo.setAccessibleText("Anika Costa");
-//        } else if (appointments.getContactId() == 2) {
-//            this.contactCombo.setValue("Daniel Garcia");
-//        } else if (appointments.getContactId() == 3) {
-//            this.contactCombo.setValue("Li Lee");
-//
-//
-//        }
     }
 
 
@@ -227,8 +220,8 @@ public class UpdateAppointment implements Initializable {
 
             //"abbreviated" for-loop to add into variables the desired outcome being the info that goes into the targeted combo box.
 
-        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
-//            contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactName())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
+//        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
+            contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactName())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
             customerIdList.forEach(customer -> customerId.add(customer.getCustomerId()));//data for customer id combo box
             userIdList.forEach(users -> userId.add(users.getUserId()));//data for user id list
 

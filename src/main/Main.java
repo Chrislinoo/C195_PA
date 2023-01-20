@@ -11,16 +11,19 @@ import javafx.stage.Stage;
 import model.Countries;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 
 
 /**
  * The Main in which the program will start. It allows for the login screen to be the start of the application.
  */
 public class Main extends Application {
+    ResourceBundle rb = ResourceBundle.getBundle("ResourceBundle/Nat",Locale.getDefault());
     @Override
     public void start(Stage primaryStage)   throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
-        primaryStage.setTitle("Login Screen");
+        primaryStage.setTitle(rb.getString("LoginScreen"));
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
@@ -33,13 +36,20 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         JDBC.openConnection();
-        //--Use this line of code to test the language requirement for the login page-- Locale.setDefault(new Locale("fr"));
+//        Locale.setDefault(new Locale("fr"));
+//        Locale france = new Locale("fr","FR");
+//
+//        ResourceBundle resourceBundle = ResourceBundle.getBundle("ResourceBundle/Nat",Locale.getDefault());
+//        if (Locale.getDefault().getLanguage().equals("fr"));
+//        System.out.println(resourceBundle.getString("credential"));
 
         launch(args);
 
 
 
         JDBC.closeConnection();
+
+
 
     }
 }

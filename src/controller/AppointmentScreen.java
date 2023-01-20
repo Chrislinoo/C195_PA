@@ -238,6 +238,8 @@ public class AppointmentScreen implements Initializable {
 
         catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }

@@ -39,4 +39,66 @@ public class DBContacts {
         return contactsList;
     }
 
+    /**
+     * This method was created for a simpler way of pulling the contact id from a combo box of
+     * contact names. The query selects all the info from the database where contact name is included,
+     * and then it returns contact ID.
+     * @param contactName
+     * @return contact ID
+     * @throws SQLException
+     */
+    public static int matchingContact(String contactName) throws SQLException {
+        try {
+            String sql = "SELECT * FROM contacts WHERE Contact_Name = ?;";
+
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setString(1, contactName);
+
+            ResultSet rs = ps.executeQuery();
+
+
+            int contact_id = 0;
+            while (rs.next()) {
+                contact_id = rs.getInt("Contact_ID");
+                String contactName1 = rs.getString("Contact_Name");
+                String contactEmail = rs.getString("Email");
+            }
+            return contact_id;
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String idToName(int contactId) throws SQLException {
+        try {
+            String sql = "SELECT * FROM contacts WHERE Contact_ID = ?;";
+
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setInt(1, contactId);
+
+            ResultSet rs = ps.executeQuery();
+
+            String contactName = "";
+            while (rs.next()){
+                int contact_id = rs.getInt("Contact_ID");
+                contactName = rs.getString("Contact_Name");
+                String contactEmail = rs.getString("Email");
+            }
+            return contactName;
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
 }
+
+
+

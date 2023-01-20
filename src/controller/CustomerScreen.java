@@ -109,7 +109,7 @@ public class CustomerScreen implements Initializable {
     void deleteBtnAction(ActionEvent event) {
 
         try {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Continuing will delete the customer and all associated appointments, do you wish to continue?");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Continuing will delete all the customers appointments followed by the customer, do you wish to continue?");
             alert.setTitle("Delete");
             Optional<ButtonType> result = alert.showAndWait();
 

@@ -154,7 +154,8 @@ public class AddAppointment implements Initializable {
             //ps.setInt(13,Integer.parseInt(userIdTxtField.getText()));original
             ps.setInt(13, Integer.parseInt(userIdCombo.getValue().toString()));
             //ps.setInt(14,Integer.parseInt(DBContacts.getAllContacts().toString()));original
-            ps.setString(14, addContactCombo.getValue());
+//            ps.setString(14, addContactCombo.getValue());
+            ps.setString(14, String.valueOf(DBContacts.matchingContact(addContactCombo.getValue())));
 
             ps.execute();
 
@@ -242,8 +243,8 @@ public class AddAppointment implements Initializable {
 
         //"abbreviated" for-loop to add into variables the desired outcome being the info that goes into the targeted combo box.
 
-        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
-//        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactName())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
+//        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
+        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactName())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
         customerIdList.forEach(customer -> customerId.add(customer.getCustomerId()));//data for customer id combo box
         userIdList.forEach(users -> userId.add(users.getUserId()));//data for user id list
 
