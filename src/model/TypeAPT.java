@@ -24,4 +24,9 @@ public class TypeAPT {
         this.typeReport = typeReport;
         this.totalCount = totalCount;
     }
+
+    @Override
+    public String toString() {
+        return typeReport;
+    }
 }
