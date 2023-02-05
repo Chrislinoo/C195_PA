@@ -17,8 +17,11 @@ import model.Appointments;
 import model.Countries;
 import model.Customer;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -100,7 +103,14 @@ public class Login implements Initializable {
     @FXML
     void onActionLogIn(ActionEvent event) throws IOException {
 
-        ResourceBundle rb = ResourceBundle.getBundle("ResourceBundle/Nat", Locale.getDefault());
+        ResourceBundle rb = ResourceBundle.getBundle("ResourceBundle/Nat", Locale.getDefault());//Language locator
+        //------Logger-----------------------------------------------------------------------------------------------
+        String filename = "C:\\Users\\Christopher\\IdeaProjects\\C195_PA\\login_activity.txt", item;//RECHECK THIS!!!
+
+        FileWriter fwriter = new FileWriter(filename, true);
+        PrintWriter outputFile = new PrintWriter(fwriter);
+
+
 
         try {
 
@@ -131,7 +141,10 @@ public class Login implements Initializable {
 
                 stage.show();
 
-                System.out.println(rb.getString("LoginSuccessful"));
+//                System.out.println(rb.getString("Login Successful"));//Confirms Login
+//                outputFile.print("Successful login by: " +userIdTxt.getText()+ " at time: " + Timestamp.valueOf(LocalDateTime.now())+ ".");//Confirmation gets written into the file
+//                outputFile.println("...");
+
 //----------------------------------------------------Logic for the 15 min window---------------------------------------
                 for (Appointments appointments : appointmentsObservableList){
                     timeStarted = appointments.getAptStartTime();
@@ -156,7 +169,11 @@ public class Login implements Initializable {
                 alert.setTitle("Error");
                 alert.setContentText(rb.getString("Wrong"));
                 alert.showAndWait();
+//                outputFile.print("Unsuccessful login by: " +userIdTxt.getText()+ " at time: " + Timestamp.valueOf(LocalDateTime.now())+ ".");//Fixed, was logging label instead of text box!
+//                outputFile.println("...");
+
             }
+            outputFile.close();//closes print writer
         }
         catch (IOException e) {
             throw new RuntimeException(e);

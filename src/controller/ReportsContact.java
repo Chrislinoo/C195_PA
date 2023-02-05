@@ -16,8 +16,6 @@ package controller;
         import javafx.stage.Stage;
         import model.Appointments;
         import model.Contacts;
-        import model.MonthAPT;
-        import model.TypeAPT;
 
         import java.io.IOException;
         import java.net.URL;
@@ -86,11 +84,7 @@ public class ReportsContact implements Initializable {
 
     @FXML
     private TableView<Appointments> contactsTableView;
-    @FXML
-    private TableView<MonthAPT> aptMonthMini;
 
-    @FXML
-    private TableView<TypeAPT> aptTypeMini;
 
     @FXML
     private Label generatedTotalLabel;
@@ -321,9 +315,9 @@ public class ReportsContact implements Initializable {
                 appointmentsObservableList.add(appointments);
             }
             if (appointmentsObservableList.isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Error");
-                alert.setContentText("There are no existing " +appointmentTypeCombo.getValue()+ " type appointments for the month of " +monthCombo.getValue()+ ".");
+                alert.setContentText("There are no existing " +appointmentTypeCombo.getValue()+ " type of appointments for the month of " +monthCombo.getValue()+ ".");
                 alert.showAndWait();
             }
 
