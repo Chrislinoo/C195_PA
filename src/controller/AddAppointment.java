@@ -116,7 +116,8 @@ public class AddAppointment implements Initializable {
     }
 
     /**
-     * Using bind variables this method inserts appointments into the database.
+     * Using bind variables this method inserts appointments into the database. It also contains all the necessary alerts
+     * when adding an appointment to the database as well as an alert if theres an overlapping appointment.
      * @param event
      * @throws SQLException
      */
@@ -278,29 +279,30 @@ public class AddAppointment implements Initializable {
             for (Appointments appointments : appointmentsObservableList){
 
                 int existingAppointmentID = appointments.getAppointmentId();
+                int existingCustomerID = appointments.getCustomerId();
                 LocalDateTime startingTestTime = appointments.getAptStartTime();
                 LocalDateTime endingTestTime = appointments.getAptEndTime();
 
-                if ((newAppointmentId != existingAppointmentID) && (startingTestTime.isAfter(startDateTime) || startingTestTime.isEqual(startDateTime)) && startingTestTime.isBefore(endDateTime)){
+                if ((newAppointmentId != existingAppointmentID) && (customer_Id == existingCustomerID) && (startingTestTime.isAfter(startDateTime) || startingTestTime.isEqual(startDateTime)) && startingTestTime.isBefore(endDateTime)){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
-                    alert.setContentText("Appointment time overlaps with another appointment, please change the times to an available slotA");
+                    alert.setContentText("Appointment time overlaps with another appointment, please change the times to an available slot");
                     alert.showAndWait();
                     return;
                 }
 
-                if ((newAppointmentId != existingAppointmentID) && endingTestTime.isAfter(startDateTime) && (endingTestTime.isBefore(endDateTime) || endingTestTime.isEqual(endDateTime))){
+                if ((newAppointmentId != existingAppointmentID) && (customer_Id == existingCustomerID) && endingTestTime.isAfter(startDateTime) && (endingTestTime.isBefore(endDateTime) || endingTestTime.isEqual(endDateTime))){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
-                    alert.setContentText("Appointment time overlaps with another appointment, please change the times to an available slotB");
+                    alert.setContentText("Appointment time overlaps with another appointment, please change the times to an available slot");
                     alert.showAndWait();
                     return;
                 }
 
-                if ((newAppointmentId != existingAppointmentID) && (startingTestTime.isBefore(startDateTime) || startingTestTime.isEqual(startDateTime)) && (endingTestTime.isAfter(endDateTime) || endingTestTime.isEqual(endDateTime))){
+                if ((newAppointmentId != existingAppointmentID) && (customer_Id == existingCustomerID) && (startingTestTime.isBefore(startDateTime) || startingTestTime.isEqual(startDateTime)) && (endingTestTime.isAfter(endDateTime) || endingTestTime.isEqual(endDateTime))){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
-                    alert.setContentText("Appointment time overlaps with another appointment, please change the times to an available slotC");
+                    alert.setContentText("Appointment time overlaps with another appointment, please change the times to an available slot");
                     alert.showAndWait();
                     return;
                 }
@@ -382,7 +384,8 @@ public class AddAppointment implements Initializable {
 
     /**
      * Initializes the combo boxes needed for time and contact, user, and customer information. Using a for-loop to add
-     * into observable array lists and then using that to populate the combo boxes.
+     * into observable array lists and then using that to populate the combo boxes. This method uses 3 lambdas to improve the
+     * structure of the code.
      * @param url
      * @param resourceBundle
      */
@@ -420,10 +423,10 @@ public class AddAppointment implements Initializable {
 
         //"abbreviated" for-loop to add into variables the desired outcome being the info that goes into the targeted combo box.
 
-//        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
-        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactName())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
-        customerIdList.forEach(customer -> customerId.add(customer.getCustomerId()));//data for customer id combo box
-        userIdList.forEach(users -> userId.add(users.getUserId()));//data for user id list
+//        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));// (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
+        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactName())));//lambda 1!(acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
+        customerIdList.forEach(customer -> customerId.add(customer.getCustomerId()));//lambda 2! data for customer id combo box
+        userIdList.forEach(users -> userId.add(users.getUserId()));//lambda 3! data for user id list
 
         startAptCombo.setItems(appointmentIntervals);
         endAptCombo.setItems(appointmentIntervals);

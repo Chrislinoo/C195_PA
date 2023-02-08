@@ -13,7 +13,7 @@ import java.sql.SQLException;
 /**
  * Method that returns an observable list named "customersList". It first makes the query , followed by establishing the connection to the DB which then uses
  * a prepared statement with the sql variable. Then we loop through the results set, and we build new customer objects from the DB.
- * @return the information desired from the database.
+ * @return customerLists, all customers in the database.
  */
 public class DBCustomers {
 
@@ -47,6 +47,12 @@ public class DBCustomers {
         return customersList;
     }
 
+    /**
+     * Deletes a customer from the database through matching ID.
+     * @param customer_Id
+     * @return rowsAffected
+     * @throws SQLException
+     */
     public static int delete(int customer_Id) throws SQLException {
         String deleteSql = "DELETE FROM customers WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(deleteSql);

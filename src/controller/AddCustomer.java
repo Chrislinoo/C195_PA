@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -64,6 +65,11 @@ public class AddCustomer implements Initializable {
 
     }
 
+    /**
+     * Cancels adding a customer and returns user to the customer screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void cancelBtn_action(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -95,9 +101,30 @@ public class AddCustomer implements Initializable {
 
     }
 
+    /**
+     * Saves customer into the database. Using bind variables to assign what goes where, and we take the values from the
+     * text fields and combo boxes.
+     * @param event
+     */
     @FXML
     void saveBtn_action(ActionEvent event) {
         try {
+
+            if (addressTxtField.getText().isEmpty() || postalTxtField.getText().isEmpty() || nameTxtField.getText().isEmpty() || phoneTxtField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please make sure all text fields are filled out correctly");
+                alert.showAndWait();
+                return;
+            }
+            if (countryCombo.getValue() == null || divisionCombo.getValue() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Make sure all drop down fields have a selection");
+                alert.showAndWait();
+                return;
+            }
+
             String insertSql = "INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = JDBC.connection.prepareStatement(insertSql);
 
@@ -127,6 +154,11 @@ public class AddCustomer implements Initializable {
         }
     }
 
+    /**
+     * Populates the country combo.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

@@ -13,10 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointments;
 import model.Contacts;
@@ -28,9 +25,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ResourceBundle;
 
 public class UpdateAppointment implements Initializable {
@@ -107,23 +102,205 @@ public class UpdateAppointment implements Initializable {
     }
 
     /**
-     * Updates all the desired information into the database using the UPDATE sql statement.
+     * Updates all the desired information into the database using the UPDATE sql statement. Here also lies the alerts that
+     * will set off in case of any empty box or missing information. There's also alerts that will flag you if there's an appointment
+     * time that overlaps with another one.
      * @param event
      */
     @FXML
     void saveBtn_Action(ActionEvent event) {
 
         try {
-            String updateSql = "UPDATE appointments SET Appointment_ID = ?, Description = ?, Contact_ID = ?, Start = ?, End = ?, Title = ?, Location = ?, Type = ?, Create_Date = ?, Created_By = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ? WHERE Appointment_ID = ?";
-            PreparedStatement ps = JDBC.connection.prepareStatement(updateSql);
-
+            //--------------------------------Empty Fields--------------------------------------------------------------------------
+            if (descriptionTxt.getText().isEmpty() || titleTxt.getText().isEmpty() || locationTxt.getText().isEmpty() || typeTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Make sure all text fields are filled out");
+                alert.showAndWait();
+                return;
+            }
+            if (contactCombo.getValue() == null || startTimeCombo.getValue() == null || endTimeCombo.getValue() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Make sure all drop down fields have a selection");
+                alert.showAndWait();
+                return;
+            }
+            if (startDatePicker.getValue() == null || endDatePicker.getValue() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please select an appointment start date");
+                alert.showAndWait();
+                return;
+            }
+            if (customerCombo.getValue() == null || userCombo.getValue() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Make sure all drop down fields have a selection");
+                alert.showAndWait();
+                return;
+            }
+//-------------------------------Creating LocalDateTime From Combo Boxes------------------------------------------------
             LocalDate startDate = startDatePicker.getValue();
             LocalTime startTime = LocalTime.parse(startTimeCombo.getValue().toString());
-            LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+            LocalDateTime startDateTime = LocalDateTime.of(startDate,startTime);
 
             LocalDate endDate = endDatePicker.getValue();
             LocalTime endTime = LocalTime.parse(endTimeCombo.getValue().toString());
-            LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+            LocalDateTime endDateTime = LocalDateTime.of(endDate,endTime);
+
+            if (startDate.isAfter(endDate)){//Has to have realistic days for setting an appointment
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointment start day should be before its end day");
+                alert.showAndWait();
+                return;
+            }
+            if (endDate.isBefore(startDate)){//Has to have realistic days for setting an appointment
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointment end day should be after its start day");
+                alert.showAndWait();
+                return;
+            }
+
+//-------------------------------Opening Day Schedule Check-------------------------------------------------------------
+
+            int businessOpenDay = DayOfWeek.MONDAY.getValue();
+            int businessClosingDay = DayOfWeek.FRIDAY.getValue();
+
+            ZonedDateTime zonedDateTimeStart = ZonedDateTime.of(startDateTime, ZoneId.systemDefault());//system default time zone for the LocalDateTime startDateTime
+            ZonedDateTime zonedDateTimeEnd = ZonedDateTime.of(endDateTime, ZoneId.systemDefault());//system default time zone for the LocalDateTime endDateTime
+            ZonedDateTime estConversionStart = zonedDateTimeStart.withZoneSameInstant(ZoneId.of("America/New_York"));//goes from system default to EST
+            ZonedDateTime estConversionEnd = zonedDateTimeEnd.withZoneSameInstant(ZoneId.of("America/New_York"));//goes from system default to EST
+
+            DayOfWeek appointmentStartDayName = estConversionStart.toLocalDate().getDayOfWeek();//Gets day if the week from "startDateTime"
+            DayOfWeek appointmentEndDayName = estConversionEnd.toLocalDate().getDayOfWeek();//Gets day if the week from "endDateTime"
+            int appointmentStartDayName_intValue = appointmentStartDayName.getValue();//turned day of the week into integer value, so we could compare it to open business day values
+            int appointmentEndDayName_intValue = appointmentEndDayName.getValue();//turned day of the week into integer value, so we could compare it to open business day values
+
+            if (appointmentStartDayName_intValue < businessOpenDay || appointmentStartDayName_intValue > businessClosingDay){//Appointment has to be within business days
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointment date should be during open business days (Monday-Friday)");
+                alert.showAndWait();
+                return;
+            }
+
+            if (appointmentEndDayName_intValue < businessOpenDay || appointmentEndDayName_intValue > businessClosingDay){//Appointment has to be within business days
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointment date should be during open business days (Monday-Friday)");
+                alert.showAndWait();
+                return;
+            }
+//--------------------------------Opening Hour Schedule Check-----------------------------------------------------------
+            LocalTime verifyAppointmentStartTime = estConversionStart.toLocalTime();//EST to Local
+            LocalTime verifyAppointmentEndTime = estConversionEnd.toLocalTime();//EST to Local
+            LocalTime businessOpenTime = LocalTime.of(8,00);//Opening Time
+            LocalTime businessCloseTime = LocalTime.of(22,00);//Closing Time
+
+            if (verifyAppointmentStartTime.isBefore(businessOpenTime) || verifyAppointmentStartTime.isAfter(businessCloseTime)){//Appointment has to be within business hours
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointment start time should be during open business hours (8:00 AM EST - 10:00 PM EST)");
+                alert.showAndWait();
+                return;
+            }
+
+            if (verifyAppointmentEndTime.isBefore(businessOpenTime) || verifyAppointmentEndTime.isAfter(businessCloseTime)){//Appointment has to be within business hours
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointment end time should be during open business hours (8:00 AM EST - 10:00 PM EST)");
+                alert.showAndWait();
+                return;
+            }
+
+            if (startTime.isAfter(endTime)){//Has to have logical times
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Start time should be before end time");
+                alert.showAndWait();
+                return;
+            }
+
+            if (endTime.isBefore(startTime)){//Has to have logical times
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("End time should be before start time");
+                alert.showAndWait();
+                return;
+            }
+
+            if (startTime.equals(endTime)){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Start and end times cannot be the same");
+                alert.showAndWait();
+                return;
+            }
+
+            if (endTime.equals(startTime)){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Start and end times cannot be the same");
+                alert.showAndWait();
+                return;
+            }
+
+            //--------------------------Overlapping appointments for Start, End, and existing appointments----See Overlapping
+//appointments video for reference......
+            // - LocalDateTime methods:
+            // - A > B is "A.isAfter(B)"
+            // - A == B is "A.isEqual(B)"
+            // - A < B is "A.isBefore(B)"
+            //Greater than or equal to is a combo of these with an OR
+            // - A <= B is (A < B || A == B) ---- (A.isBefore(B) || A.isEqual(B))
+            // Needs : -for loop    -LocalDateTime times check to compare the new times with the existing times -Also a
+            //statement that makes sure the customer ID is the same while the appointment ID is not equal to an existing one....
+            ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
+            int appointmentId = Integer.parseInt(aptIdTxt.getText());
+            int customer_Id = (int) customerCombo.getValue();//CHANGE
+
+
+            for (Appointments appointments : appointmentsObservableList){
+
+                int existingAppointmentID = appointments.getAppointmentId();
+                int existingCustomer = appointments.getCustomerId();//has to be the same customer ID since youre updating that specific customers appointment.
+                LocalDateTime startingTestTime = appointments.getAptStartTime();
+                LocalDateTime endingTestTime = appointments.getAptEndTime();
+
+                if ((appointmentId != existingAppointmentID) && (customer_Id == existingCustomer) && (startingTestTime.isAfter(startDateTime) || startingTestTime.isEqual(startDateTime)) && startingTestTime.isBefore(endDateTime)){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Appointment time overlaps with another appointment, please change the times to an available slot");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if ((appointmentId != existingAppointmentID) && (customer_Id == existingCustomer) && endingTestTime.isAfter(startDateTime) && (endingTestTime.isBefore(endDateTime) || endingTestTime.isEqual(endDateTime))){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Appointment time overlaps with another appointment, please change the times to an available slot");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if ((appointmentId != existingAppointmentID) && (customer_Id == existingCustomer) && (startingTestTime.isBefore(startDateTime) || startingTestTime.isEqual(startDateTime)) && (endingTestTime.isAfter(endDateTime) || endingTestTime.isEqual(endDateTime))){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Appointment time overlaps with another appointment, please change the times to an available slot");
+                    alert.showAndWait();
+                    return;
+                }
+
+            }
+
+
+            String updateSql = "UPDATE appointments SET Appointment_ID = ?, Description = ?, Contact_ID = ?, Start = ?, End = ?, Title = ?, Location = ?, Type = ?, Create_Date = ?, Created_By = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ? WHERE Appointment_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(updateSql);
+
+
 
             ps.setInt(1, Integer.parseInt(aptIdTxt.getText()));
             ps.setString(2, descriptionTxt.getText());

@@ -41,7 +41,7 @@ public class DBContacts {
 
     /**
      * This method was created for a simpler way of pulling the contact id from a combo box of
-     * contact names. The query selects all the info from the database where contact name is included,
+     * contact names. The query selects all the info from the database where contact name is included/matching,
      * and then it returns contact ID.
      * @param contactName
      * @return contact ID
@@ -71,6 +71,13 @@ public class DBContacts {
         }
     }
 
+    /**
+     * This method takes a contact id and returns the contact name it belongs to. This was made for quality of life because its purpose is
+     * to make it easier to populate combo boxes with the desired information, in this case being the contactName.
+     * @param contactId
+     * @return contactName
+     * @throws SQLException
+     */
     public static String idToName(int contactId) throws SQLException {
         try {
             String sql = "SELECT * FROM contacts WHERE Contact_ID = ?;";

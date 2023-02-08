@@ -272,7 +272,9 @@ public class AppointmentScreen implements Initializable {
     }
 
     /**
-     * Filters table to show appointments within a months time frame of current time.
+     * Filters table to show appointments within a months time frame of current time, this method also makes use of a lambda
+     * to improve coding. The lambda is used to go through appointments in the appointments observable list and adds the
+     * appointments that meets the if conditions into a separate observable list.
      * @param actionEvent
      */
     public void monthRadioButton_Action(ActionEvent actionEvent) {
@@ -281,7 +283,7 @@ public class AppointmentScreen implements Initializable {
         LocalDateTime startOfMonth = LocalDateTime.now().minusMonths(1);
         LocalDateTime endOfMonth = LocalDateTime.now().plusMonths(1);
 
-        if (appointmentsObservableList != null){
+        if (appointmentsObservableList != null){//lambda 4!
             appointmentsObservableList.forEach(appointments -> {
                 if (appointments.getAptEndTime().isAfter(startOfMonth) && appointments.getAptEndTime().isBefore(endOfMonth)){
                     appointmentsByMonth.add(appointments);

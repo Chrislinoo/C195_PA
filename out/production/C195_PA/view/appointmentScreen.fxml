@@ -29,7 +29,6 @@
       </TableView>
       <Button fx:id="reportsBtn" layoutX="275.0" layoutY="9.0" mnemonicParsing="false" onAction="#reportsBtnAction" prefHeight="30.0" prefWidth="90.0" text="Reports" />
       <Button fx:id="exitAppointmentBtn" layoutX="1080.0" layoutY="536.0" mnemonicParsing="false" onAction="#exitBtnAction" prefHeight="45.0" prefWidth="55.0" text="Exit" />
-      <Label fx:id="timeZoneLabel" layoutX="1013.0" layoutY="14.0" text="Time Zone Placeholder" />
       <Label layoutX="9.0" layoutY="14.0" text="Appointments" />
       <Button fx:id="customersBtn" layoutX="389.0" layoutY="9.0" mnemonicParsing="false" onAction="#customersBtnAction" prefHeight="30.0" prefWidth="90.0" text="Customers" />
       <GridPane hgap="100.0" layoutX="175.0" layoutY="506.0">

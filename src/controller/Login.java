@@ -32,6 +32,12 @@ public class Login implements Initializable {
     Parent scene;
 
 
+    /**
+     * Where the application starts. Lets the user know the time zone and if the users region is in France then it translates the
+     * page and everything on it to French.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -49,14 +55,6 @@ public class Login implements Initializable {
             credentialsLabel.setText(rb.getString("Credentials"));
             locationLabel.setText(rb.getString("Location"));
             //Flexes between english and French depending on the users language settings using the resource files.
-
-
-
-
-
-
-
-
 
 
         } catch (MissingResourceException e){
@@ -100,6 +98,12 @@ public class Login implements Initializable {
     @FXML
     private Label zoneIdLabel;
 
+    /**
+     * Logs the user in by checking if username and passwords are a match. The logger is also written here to log successful
+     * and unsuccessful logins. Upon logging in you will also get a warning if there's an appointment within 15 minutes or not.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionLogIn(ActionEvent event) throws IOException {
 

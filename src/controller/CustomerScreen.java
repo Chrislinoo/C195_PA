@@ -21,6 +21,7 @@ import model.Divisions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -83,6 +84,11 @@ public class CustomerScreen implements Initializable {
     @FXML
     private SplitMenuButton viewBySplit;
 
+    /**
+     * Redirects user to the add customer screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void addBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -94,6 +100,11 @@ public class CustomerScreen implements Initializable {
         stage.show();
     }
 
+    /**
+     * Redirects user to the appointments screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void appointmentsBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -105,6 +116,11 @@ public class CustomerScreen implements Initializable {
         stage.show();
     }
 
+    /**
+     * Deletes customer from the database. Will issue an alert letting the user know that along with the customer, all appointments
+     * tied to said customer will also be deleted.
+     * @param event
+     */
     @FXML
     void deleteBtnAction(ActionEvent event) {
 
@@ -123,12 +139,22 @@ public class CustomerScreen implements Initializable {
             }
 
         }
+        catch (NullPointerException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Select a customer first");
+            alert.showAndWait();
+        }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
 
     }
 
+    /**
+     * Closes the application.
+     * @param event
+     */
     @FXML
     void exitBtnAction(ActionEvent event) {
         System.exit(0);
@@ -166,6 +192,12 @@ public class CustomerScreen implements Initializable {
 
     }
 
+    /**
+     * Redirects user to the update customer screen. In addition to this , it grabs the information of the selected customer
+     * and pulls his information to populate the combo boxes so that the user can see the customers already existing data.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void updateBtnAction(ActionEvent event) throws IOException {
         try {
@@ -181,13 +213,26 @@ public class CustomerScreen implements Initializable {
             stage.setScene(new Scene(scene));
             stage.show();
         }
+        catch (NullPointerException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Select a customer first");
+            alert.showAndWait();
+        }
 
         catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
 
+    /**
+     * Populates the table view with the customer objects.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Customer> customerObservableList = DBCustomers.getAllCustomers();

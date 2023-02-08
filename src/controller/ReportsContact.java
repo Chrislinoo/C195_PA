@@ -149,7 +149,8 @@ public class ReportsContact implements Initializable {
     }
 
     /**
-     * Initializes and populates the graph as well as the combo boxes we will be using.
+     * Initializes and populates the graph as well as the combo boxes we will be using. This method also uses another few lambda,
+     * mostly used here to filter out specific things from objects that I want to use.
      * @param url
      * @param resourceBundle
      */
@@ -182,7 +183,7 @@ public class ReportsContact implements Initializable {
         ObservableList<String> typeObservableList = FXCollections.observableArrayList();
         ObservableList<String> special = FXCollections.observableArrayList();
 
-        appointments.forEach(appointments1 -> {
+        appointments.forEach(appointments1 -> {//another lambda
             typeObservableList.add(appointments1.getAptType());//Adds all appointment types into list
         });
 
@@ -264,6 +265,8 @@ public class ReportsContact implements Initializable {
 
     /**
      * The generate total button returns a count of all the registered customers in the database.
+     * Here lies my third report requirement. It is a total count of all customers in the system, can be used to see/track growth within
+     * the business at the click of a button.
      * @param event
      * @throws SQLException
      */
@@ -291,6 +294,22 @@ public class ReportsContact implements Initializable {
         ObservableList<Appointments> appointmentsObservableList = FXCollections.observableArrayList();
 
         try {
+
+            if (appointmentTypeCombo.getValue() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please select an appointment type");
+                alert.showAndWait();
+                return;
+            }
+            if (monthCombo.getValue() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please select a month");
+                alert.showAndWait();
+                return;
+            }
+
             String sql = "SELECT * FROM appointments WHERE Type = ? AND monthname(Start) = ?;";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
 

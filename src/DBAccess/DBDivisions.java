@@ -71,4 +71,33 @@ public class DBDivisions {
         }
         return filteredDivisions;
     }
+
+    /**
+     * Created this method to get the division name from its corresponding ID. This made it easier fixing a problem I had
+     * while updating a customers in the database. It populates the combo box with the correct information.
+     * @param divisionId
+     * @return division
+     * @throws SQLException
+     */
+    public static String divId_divName(int divisionId) throws SQLException {
+        try {
+            String sql = "SELECT * FROM first_level_divisions WHERE Division_ID = ?";
+            PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1, divisionId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            String division = "";
+            while (resultSet.next()) {
+                int division_id = resultSet.getInt("Division_ID");
+                division = resultSet.getString("Division");
+                int countryId = resultSet.getInt("Country_ID");
+            }
+            return division;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

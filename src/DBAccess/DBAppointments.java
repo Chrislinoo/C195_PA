@@ -47,6 +47,13 @@ public class DBAppointments {
         return appointmentsList;
     }
 
+    /**
+     * Deletes an appointment from the database. Using appointment ID as a parameter it deletes the appointment in which
+     * matches the appointment ID that is selected.
+     * @param appointment_Id
+     * @return rowsAffected
+     * @throws SQLException
+     */
     public static int delete(int appointment_Id) throws SQLException {
         String deleteSql = "DELETE FROM appointments WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(deleteSql);
@@ -61,9 +68,9 @@ public class DBAppointments {
         return rowsAffected;
     }
 
-    public static void countAppt(){
+//    public static void countAppt(){
 //        String sql = "SELECT count(*) FROM appointment Where";
-//        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+//      PreparedStatement ps = JDBC.connection.prepareStatement(sql);
 //        ResultSet rs = ps.executeQuery();
-    }
+//    }
 }

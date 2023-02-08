@@ -209,11 +209,6 @@ public class Appointments {
         this.contactId = contactId;
     }
 
-//    public static ObservableList<Appointments> contactLookup(int contactId){
-//        ObservableList<Appointments> filteredAppointment = FXCollections.observableArrayList();
-//        for (Appointments appointments : DBAppointments.getAllAppointments()){
-//            if (appointments.getContactId())
-//        }
 
 
 }
