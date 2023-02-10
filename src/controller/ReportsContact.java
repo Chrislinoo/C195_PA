@@ -148,12 +148,6 @@ public class ReportsContact implements Initializable {
                 return false;
             });
 
-//            for (Appointments appointments : appointmentsObservableList) {
-//                if (appointments.getContactId() == contactId) {
-//                    desiredAptInfo = appointments;
-//                    filteredAptList.add(desiredAptInfo);
-//                }
-//            }
             contactsTableView.setItems(filteredAptList);
 
         } catch (Exception e) {
@@ -211,67 +205,6 @@ public class ReportsContact implements Initializable {
 
 
         monthCombo.setItems(months);
-
-
-
-
-
-
-
-//        ObservableList<Month> monthObservableList = FXCollections.observableArrayList();
-//        ObservableList<Month> monthsApt = FXCollections.observableArrayList();
-//        ObservableList<MonthAPT> reportPerMonth = FXCollections.observableArrayList();
-//
-//        appointments.stream().map(appointments1 -> {
-//            return appointments1.getAptStartTime().getMonth();
-//        }).forEach(monthObservableList::add);
-//
-//        monthObservableList.stream().filter(month -> {
-//            return !monthsApt.contains(month);
-//        }).forEach(monthsApt::add);
-//
-//        for (Month month : monthsApt) {
-//            int totalCount = Collections.frequency(monthObservableList, month);
-//            String monthName = month.name();
-//            MonthAPT monthAPT = new MonthAPT(monthName, totalCount);
-//            reportPerMonth.add(monthAPT);
-//        }
-//
-//        monthCombo.setItems(reportPerMonth);
-//        aptMonthMini.setItems(reportPerMonth);
-//        appointmentPerMonthColumn.setCellValueFactory(new PropertyValueFactory<>("monthName"));
-//        appointmentPerMonthColumn_Total.setCellValueFactory(new PropertyValueFactory<>("totalCount"));
-
-        //-----------------------------------------------------------------------------------
-
-//        ObservableList<String> typeObservableList = FXCollections.observableArrayList();
-//        ObservableList<String> special = FXCollections.observableArrayList();
-//        ObservableList<TypeAPT> typePerMonth = FXCollections.observableArrayList();
-//
-//        appointments.forEach(appointments1 -> {
-//            typeObservableList.add(appointments1.getAptType());
-//        });
-//
-//        for (Appointments appointments1 : appointments) {
-//            String appointmentsAppointmentType = appointments1.getAptType();
-//            if (!special.contains(appointmentsAppointmentType)) {
-//                special.add(appointmentsAppointmentType);
-//            }
-//        }
-//
-//        for (String type : special) {
-//            String typeToSet = type;
-//            int typeTotal = Collections.frequency(typeObservableList, type);
-//            TypeAPT typeAPT = new TypeAPT(typeToSet, typeTotal);
-//            typePerMonth.add(typeAPT);
-//        }
-//
-//        appointmentTypeCombo.setItems(typeObservableList);
-//
-//        aptTypeMini.setItems(typePerMonth);
-//
-//        appointmentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("typeReport"));
-//        appointmentTypeColumn_Total.setCellValueFactory(new PropertyValueFactory<>("totalCount"));
 
 
     }

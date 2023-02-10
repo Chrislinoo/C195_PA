@@ -397,7 +397,6 @@ public class UpdateAppointment implements Initializable {
 
             //"abbreviated" for-loop to add into variables the desired outcome being the info that goes into the targeted combo box.
 
-//        contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactId())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
             contactList.forEach(contacts -> contactsNames.add(String.valueOf(contacts.getContactName())));//lambda (acts as a for loop without having to write it out)--Allows for contact combo box to fill with data.
             customerIdList.forEach(customer -> customerId.add(customer.getCustomerId()));//data for customer id combo box
             userIdList.forEach(users -> userId.add(users.getUserId()));//data for user id list
