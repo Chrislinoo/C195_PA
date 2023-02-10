@@ -60,7 +60,8 @@ public class DBUsers {
                 if (rs.getString("Password").equals(password))
                     return rs.getInt("User_ID");
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+//            throwables.printStackTrace();
+            System.out.println("Error occurred");
         }
 
         return 0;

@@ -113,8 +113,9 @@ public class ReportsContact implements Initializable {
     }
 
     /**
-     * Filters the tableview according to the selected contact. Firt created 3 lists. One will have all our appointments, the next will have all our contacts.
+     * Filters the tableview according to the selected contact. First created 3 lists. One will have all our appointments, the next will have all our contacts.
      * The third one will be filled with the id that we have selected and then using that list we populate the tableview to display the desired information.
+     * Also contains an anonymous lambda to differentiate from the for-each variant.
      * @param event
      */
     @FXML
@@ -135,12 +136,24 @@ public class ReportsContact implements Initializable {
                     contactId = contacts.getContactId();
                 }
             }
-            for (Appointments appointments : appointmentsObservableList) {
-                if (appointments.getContactId() == contactId) {
-                    desiredAptInfo = appointments;
-                    filteredAptList.add(desiredAptInfo);
+
+            int contactIdx = contactId;
+            //Different Lambda
+            filteredAptList = appointmentsObservableList.filtered(appointments -> {//lambda
+
+                if (appointments.getContactId() == contactIdx) {
+                    return true;
                 }
-            }
+
+                return false;
+            });
+
+//            for (Appointments appointments : appointmentsObservableList) {
+//                if (appointments.getContactId() == contactId) {
+//                    desiredAptInfo = appointments;
+//                    filteredAptList.add(desiredAptInfo);
+//                }
+//            }
             contactsTableView.setItems(filteredAptList);
 
         } catch (Exception e) {

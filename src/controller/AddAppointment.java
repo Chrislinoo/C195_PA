@@ -180,34 +180,34 @@ public class AddAppointment implements Initializable {
 
 //-------------------------------Opening Day Schedule Check-------------------------------------------------------------
 
-            int businessOpenDay = DayOfWeek.MONDAY.getValue();
-            int businessClosingDay = DayOfWeek.FRIDAY.getValue();
+//            int businessOpenDay = DayOfWeek.MONDAY.getValue();
+//            int businessClosingDay = DayOfWeek.FRIDAY.getValue();
 
             ZonedDateTime zonedDateTimeStart = ZonedDateTime.of(startDateTime, ZoneId.systemDefault());//system default time zone for the LocalDateTime startDateTime on line 133
             ZonedDateTime zonedDateTimeEnd = ZonedDateTime.of(endDateTime, ZoneId.systemDefault());//system default time zone for the LocalDateTime endDateTime on line 137
             ZonedDateTime estConversionStart = zonedDateTimeStart.withZoneSameInstant(ZoneId.of("America/New_York"));//goes from system default to EST
             ZonedDateTime estConversionEnd = zonedDateTimeEnd.withZoneSameInstant(ZoneId.of("America/New_York"));//goes from system default to EST
 
-            DayOfWeek appointmentStartDayName = estConversionStart.toLocalDate().getDayOfWeek();//Gets day if the week from "startDateTime"
-            DayOfWeek appointmentEndDayName = estConversionEnd.toLocalDate().getDayOfWeek();//Gets day if the week from "endDateTime"
-            int appointmentStartDayName_intValue = appointmentStartDayName.getValue();//turned day of the week into integer value, so we could compare it to open business day values
-            int appointmentEndDayName_intValue = appointmentEndDayName.getValue();//turned day of the week into integer value, so we could compare it to open business day values
+//            DayOfWeek appointmentStartDayName = estConversionStart.toLocalDate().getDayOfWeek();//Gets day if the week from "startDateTime"
+//            DayOfWeek appointmentEndDayName = estConversionEnd.toLocalDate().getDayOfWeek();//Gets day if the week from "endDateTime"
+//            int appointmentStartDayName_intValue = appointmentStartDayName.getValue();//turned day of the week into integer value, so we could compare it to open business day values
+//            int appointmentEndDayName_intValue = appointmentEndDayName.getValue();//turned day of the week into integer value, so we could compare it to open business day values
 
-            if (appointmentStartDayName_intValue < businessOpenDay || appointmentStartDayName_intValue > businessClosingDay){//Appointment has to be within business days
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointment date should be during open business days (Monday-Friday)");
-                alert.showAndWait();
-                return;
-            }
+//            if (appointmentStartDayName_intValue < businessOpenDay || appointmentStartDayName_intValue > businessClosingDay){//Appointment has to be within business days
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Error");
+//                alert.setContentText("Appointment date should be during open business days (Monday-Friday)");
+//                alert.showAndWait();
+//                return;
+//            }
 
-            if (appointmentEndDayName_intValue < businessOpenDay || appointmentEndDayName_intValue > businessClosingDay){//Appointment has to be within business days
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointment date should be during open business days (Monday-Friday)");
-                alert.showAndWait();
-                return;
-            }
+//            if (appointmentEndDayName_intValue < businessOpenDay || appointmentEndDayName_intValue > businessClosingDay){//Appointment has to be within business days
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Error");
+//                alert.setContentText("Appointment date should be during open business days (Monday-Friday)");
+//                alert.showAndWait();
+//                return;
+//            }
 //--------------------------------Opening Hour Schedule Check-----------------------------------------------------------
             LocalTime verifyAppointmentStartTime = estConversionStart.toLocalTime();//EST to Local
             LocalTime verifyAppointmentEndTime = estConversionEnd.toLocalTime();//EST to Local

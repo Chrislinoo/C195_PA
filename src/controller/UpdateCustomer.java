@@ -33,7 +33,7 @@ public class UpdateCustomer implements Initializable {
     Parent scene;
     Stage stage;
 
-    public ComboBox countryCombo;
+    public ComboBox<Countries> countryCombo;
 //    public ComboBox divisionCombo;
 
 //    @FXML
@@ -164,22 +164,25 @@ public class UpdateCustomer implements Initializable {
         this.phoneTxt.setText(customer.getCustomerPhone());
         this.addressTxt.setText(customer.getCustomerAddress());
         this.postalTxt.setText(customer.getCustomerPostal());
-        this.countryCombo.setValue(customer.getCountryId());
-        this.divisionCombo.setPromptText(divisionsObservable);
+//        this.countryCombo.setValue(customer.getCountryId());
+        //this.divisionCombo.setPromptText(divisionsObservable);
+        //this.divisionCombo.setValue(customer.getDivisionName());
 
         ObservableList<Divisions> divisionsObservableList = DBDivisions.codeOneDivisions(customer.getCountryId());
 
         divisionCombo.setItems(divisionsObservableList);
         System.out.println(divisionsObservable);//To see what value is pulled.
 
-        if (customer.getCountryId() == 1){
-            countryCombo.setValue("U.S");
+        for (Countries c : countryCombo.getItems()){
+            if (c.getId() == customer.getCountryId()){
+                countryCombo.setValue(c);
+            }
         }
-        else if (customer.getCountryId() == 2) {
-            countryCombo.setValue("UK");
-        }
-        else if (customer.getCountryId() == 3) {
-            countryCombo.setValue("Canada");
+
+        for (Divisions d : divisionCombo.getItems()){
+            if (d.getDivisionId() == customer.getDivisionId()){
+                divisionCombo.setValue(d);
+            }
         }
 
 

@@ -72,6 +72,6 @@ public class Divisions {
      */
     @Override
     public String toString(){
-        return divisionName;
+        return divisionId + " - " + divisionName;
     }
 }

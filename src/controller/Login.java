@@ -109,7 +109,7 @@ public class Login implements Initializable {
 
         ResourceBundle rb = ResourceBundle.getBundle("ResourceBundle/Nat", Locale.getDefault());//Language locator
         //------Logger-----------------------------------------------------------------------------------------------
-        String filename = "C:\\Users\\Christopher\\IdeaProjects\\C195_PA\\login_activity.txt", item;//RECHECK THIS!!!
+        String filename = "login_activity.txt";
 
         FileWriter fwriter = new FileWriter(filename, true);
         PrintWriter outputFile = new PrintWriter(fwriter);
@@ -146,8 +146,8 @@ public class Login implements Initializable {
                 stage.show();
 
 //                System.out.println(rb.getString("Login Successful"));//Confirms Login
-//                outputFile.print("Successful login by: " +userIdTxt.getText()+ " at time: " + Timestamp.valueOf(LocalDateTime.now())+ ".");//Confirmation gets written into the file
-//                outputFile.println("...");
+                outputFile.print("Successful login by: " +userIdTxt.getText()+ " at time: " + Timestamp.valueOf(LocalDateTime.now())+ ".");//Confirmation gets written into the file
+                outputFile.println("...");
 
 //----------------------------------------------------Logic for the 15 min window---------------------------------------
                 for (Appointments appointments : appointmentsObservableList){
@@ -173,8 +173,8 @@ public class Login implements Initializable {
                 alert.setTitle("Error");
                 alert.setContentText(rb.getString("Wrong"));
                 alert.showAndWait();
-//                outputFile.print("Unsuccessful login by: " +userIdTxt.getText()+ " at time: " + Timestamp.valueOf(LocalDateTime.now())+ ".");//Fixed, was logging label instead of text box!
-//                outputFile.println("...");
+                outputFile.print("Unsuccessful login by: " +userIdTxt.getText()+ " at time: " + Timestamp.valueOf(LocalDateTime.now())+ ".");//Fixed, was logging label instead of text box!
+                outputFile.println("...");
 
             }
             outputFile.close();//closes print writer
