@@ -27,7 +27,10 @@ package controller;
         import java.util.ResourceBundle;
 
 
-public class ReportsContact implements Initializable {
+/**
+ * This is the controller for the reportsContact.fxml file. It's responsible for all the elements in the screen.
+ */
+        public class ReportsContact implements Initializable {
     public ComboBox<String> appointmentTypeCombo;
     public ComboBox<String> monthCombo;
     public Label typeMonthLabel;
@@ -102,7 +105,7 @@ public class ReportsContact implements Initializable {
      * @throws IOException
      */
     @FXML
-    void exitBtn_action(ActionEvent event) throws IOException {
+    public void exitBtn_action(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/appointmentScreen.fxml"));
@@ -119,7 +122,7 @@ public class ReportsContact implements Initializable {
      * @param event
      */
     @FXML
-    void filterCombo_action(ActionEvent event) {
+    public void filterCombo_action(ActionEvent event) {
         try {
 
             ObservableList<Appointments> appointmentsObservableList = DBAppointments.getAllAppointments();
@@ -217,7 +220,7 @@ public class ReportsContact implements Initializable {
      * @throws SQLException
      */
     @FXML
-    void generateTotal_Action(ActionEvent event) throws SQLException {
+    public void generateTotal_Action(ActionEvent event) throws SQLException {
         String sql = "SELECT count(*) FROM customers";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();

@@ -17,7 +17,7 @@ public class Customer {
     private int countryId;
 
     /**
-     *
+     * Constructor for Customer.
      * @param customerId
      * @param customerName
      * @param customerAddress

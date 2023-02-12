@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+/**
+ * Class where most queries to the database are performed to be called on throughout the project.
+ */
 public class DBAppointments {
     /**
      * Method that returns an observable list named "appointmentsList". It first makes the query , followed by establishing the connection to the DB which then uses
@@ -68,9 +71,4 @@ public class DBAppointments {
         return rowsAffected;
     }
 
-//    public static void countAppt(){
-//        String sql = "SELECT count(*) FROM appointment Where";
-//      PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-//        ResultSet rs = ps.executeQuery();
-//    }
 }

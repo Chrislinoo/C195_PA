@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class where most queries to the database are performed to be called on throughout the project.
+ */
 public class DBUsers {
 
     /**

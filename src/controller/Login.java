@@ -26,6 +26,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * This is the controller for the login.fxml file. It's responsible for all the elements in the screen.
+ */
 public class Login implements Initializable {
 
     Stage stage;
@@ -105,7 +108,7 @@ public class Login implements Initializable {
      * @throws IOException
      */
     @FXML
-    void onActionLogIn(ActionEvent event) throws IOException {
+    public void onActionLogIn(ActionEvent event) throws IOException {
 
         ResourceBundle rb = ResourceBundle.getBundle("ResourceBundle/Nat", Locale.getDefault());//Language locator
         //------Logger-----------------------------------------------------------------------------------------------

@@ -29,6 +29,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller for the addCustomer.fxml file. It's responsible for all the elements in the screen.
+ */
 public class AddCustomer implements Initializable {
     Parent scene;
     Stage stage;
@@ -71,7 +74,7 @@ public class AddCustomer implements Initializable {
      * @throws IOException
      */
     @FXML
-    void cancelBtn_action(ActionEvent event) throws IOException {
+    public void cancelBtn_action(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/customerScreen.fxml"));
@@ -107,7 +110,7 @@ public class AddCustomer implements Initializable {
      * @param event
      */
     @FXML
-    void saveBtn_action(ActionEvent event) {
+    public void saveBtn_action(ActionEvent event) {
         try {
 
             if (addressTxtField.getText().isEmpty() || postalTxtField.getText().isEmpty() || nameTxtField.getText().isEmpty() || phoneTxtField.getText().isEmpty()){

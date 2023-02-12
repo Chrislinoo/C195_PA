@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class where most queries to the database are performed to be called on throughout the project.
+ */
 public class DBContacts {
     /**
      * Method that returns an observable list named "contactsList". It first makes the query , followed by establishing the connection to the DB which then uses

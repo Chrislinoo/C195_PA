@@ -25,6 +25,9 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller for the customerScreen.fxml file. It's responsible for all the elements in the screen.
+ */
 public class CustomerScreen implements Initializable {
     Parent scene;
     Stage stage;
@@ -90,7 +93,7 @@ public class CustomerScreen implements Initializable {
      * @throws IOException
      */
     @FXML
-    void addBtnAction(ActionEvent event) throws IOException {
+    public void addBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/addCustomer.fxml"));
@@ -106,7 +109,7 @@ public class CustomerScreen implements Initializable {
      * @throws IOException
      */
     @FXML
-    void appointmentsBtnAction(ActionEvent event) throws IOException {
+    public void appointmentsBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/appointmentScreen.fxml"));
@@ -122,7 +125,7 @@ public class CustomerScreen implements Initializable {
      * @param event
      */
     @FXML
-    void deleteBtnAction(ActionEvent event) {
+    public void deleteBtnAction(ActionEvent event) {
 
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Continuing will delete all the customers appointments followed by the customer, do you wish to continue?");
@@ -156,7 +159,7 @@ public class CustomerScreen implements Initializable {
      * @param event
      */
     @FXML
-    void exitBtnAction(ActionEvent event) {
+    public void exitBtnAction(ActionEvent event) {
         System.exit(0);
     }
 
@@ -166,7 +169,7 @@ public class CustomerScreen implements Initializable {
      * @throws IOException
      */
     @FXML
-    void reportsBtnAction(ActionEvent event) throws IOException {
+    public void reportsBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/reportsContact.fxml"));
@@ -199,7 +202,7 @@ public class CustomerScreen implements Initializable {
      * @throws IOException
      */
     @FXML
-    void updateBtnAction(ActionEvent event) throws IOException {
+    public void updateBtnAction(ActionEvent event) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/updateCustomer.fxml"));

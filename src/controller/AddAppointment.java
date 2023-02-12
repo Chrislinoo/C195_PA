@@ -29,6 +29,9 @@ import java.time.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller for the addAppointment.fxml file. It's responsible for all the elements in the screen.
+ */
 public class AddAppointment implements Initializable {
 
     Parent scene;
@@ -80,7 +83,7 @@ public class AddAppointment implements Initializable {
      * @throws IOException
      */
     @FXML
-    void cancelBtn_action(ActionEvent event) throws IOException {
+    public void cancelBtn_action(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/appointmentScreen.fxml"));
@@ -111,7 +114,7 @@ public class AddAppointment implements Initializable {
     }
 
     @FXML
-    void location_action(ActionEvent event) {
+    public void location_action(ActionEvent event) {
 
     }
 
@@ -122,7 +125,7 @@ public class AddAppointment implements Initializable {
      * @throws SQLException
      */
     @FXML
-    void saveBtn_action(ActionEvent event) throws SQLException {
+    public void saveBtn_action(ActionEvent event) throws SQLException {
 
         try {
 //--------------------------------Empty Fields--------------------------------------------------------------------------

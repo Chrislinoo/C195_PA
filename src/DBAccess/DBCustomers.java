@@ -11,12 +11,15 @@ import java.sql.SQLException;
 
 
 /**
- * Method that returns an observable list named "customersList". It first makes the query , followed by establishing the connection to the DB which then uses
- * a prepared statement with the sql variable. Then we loop through the results set, and we build new customer objects from the DB.
- * @return customerLists, all customers in the database.
+ * Class where most queries to the database are performed to be called on throughout the project.
  */
 public class DBCustomers {
 
+    /**
+     * Method that returns an observable list named "customersList". It first makes the query , followed by establishing the connection to the DB which then uses
+     * a prepared statement with the sql variable. Then we loop through the results set, and we build new customer objects from the DB.
+     * @return customerLists, all customers in the database.
+     */
     public static ObservableList<Customer> getAllCustomers(){
         ObservableList<Customer> customersList = FXCollections.observableArrayList();
 

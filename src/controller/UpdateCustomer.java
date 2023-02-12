@@ -28,6 +28,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller for the updateCustomer.fxml file. It's responsible for all the elements in the screen.
+ */
 public class UpdateCustomer implements Initializable {
 
     Parent scene;
@@ -65,8 +68,13 @@ public class UpdateCustomer implements Initializable {
 
     private Countries selectedCountry;
 
+    /**
+     * Redirects user to the customer screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    void cancelBtn_Action(ActionEvent event) throws IOException {
+    public void cancelBtn_Action(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/customerScreen.fxml"));
@@ -87,7 +95,7 @@ public class UpdateCustomer implements Initializable {
      * @param event
      */
     @FXML
-    void saveBtn_Action(ActionEvent event) {//FIX DIVISION COMBO --ASK PROFESSOR--
+    public void saveBtn_Action(ActionEvent event) {//FIX DIVISION COMBO --ASK PROFESSOR--
 
 
         try {

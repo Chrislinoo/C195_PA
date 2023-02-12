@@ -28,6 +28,9 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller for the updateAppointment.fxml file. It's responsible for all the elements in the screen.
+ */
 public class UpdateAppointment implements Initializable {
 
     public ComboBox contactCombo;
@@ -89,7 +92,7 @@ public class UpdateAppointment implements Initializable {
      * @throws IOException
      */
     @FXML
-    void cancelBtn_Action(ActionEvent event) throws IOException {
+    public void cancelBtn_Action(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/appointmentScreen.fxml"));
@@ -108,7 +111,7 @@ public class UpdateAppointment implements Initializable {
      * @param event
      */
     @FXML
-    void saveBtn_Action(ActionEvent event) {
+    public void saveBtn_Action(ActionEvent event) {
 
         try {
             //--------------------------------Empty Fields--------------------------------------------------------------------------

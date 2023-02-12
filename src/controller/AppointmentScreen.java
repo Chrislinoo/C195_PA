@@ -109,7 +109,7 @@ public class AppointmentScreen implements Initializable {
      * @throws IOException
      */
     @FXML
-    void addBtnAction(ActionEvent event) throws IOException {
+    public void addBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/addAppointment.fxml"));
@@ -126,7 +126,7 @@ public class AppointmentScreen implements Initializable {
      * @throws IOException
      */
     @FXML
-    void customersBtnAction(ActionEvent event) throws IOException {
+    public void customersBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/customerScreen.fxml"));
@@ -146,7 +146,7 @@ public class AppointmentScreen implements Initializable {
      * @throws IOException
      */
     @FXML
-    void deleteBtnAction(ActionEvent event) throws SQLException {
+    public void deleteBtnAction(ActionEvent event) throws SQLException {
 
 
 
@@ -184,7 +184,7 @@ public class AppointmentScreen implements Initializable {
      * @param event
      */
     @FXML
-    void exitBtnAction(ActionEvent event) {
+    public void exitBtnAction(ActionEvent event) {
         System.exit(0);
     }
 
@@ -194,7 +194,7 @@ public class AppointmentScreen implements Initializable {
      * @throws IOException
      */
     @FXML
-    void reportsBtnAction(ActionEvent event) throws IOException {
+    public void reportsBtnAction(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
         scene = FXMLLoader.load(getClass().getResource("/view/reportsContact.fxml"));
@@ -213,7 +213,7 @@ public class AppointmentScreen implements Initializable {
      * @throws IOException
      */
     @FXML
-    void updateBtnAction(ActionEvent event) throws IOException {
+    public void updateBtnAction(ActionEvent event) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/updateAppointment.fxml"));
