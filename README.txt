@@ -3,7 +3,7 @@ Title of the application - "Appointment Scheduling System"
 Purpose of the "Appointment Scheduling System" - This application was created for a global consulting organization to manage appointments and customers
 in different places such as Phoenix, Arizona, New York, London, England and a few others.
 
-Application was written and developed by Christopher Paulino Hernandez, who can be reached at cpaul78@wgu.edu.
+Application was written and developed by Christopher Paulino Hernandez, who can be reached at cpaul78@wgu.edu, Student ID# : 006785967.
 Student Application Version - QAM2 — QAM2 TASK 1: JAVA APPLICATION DEVELOPMENT
 Date - 2/10/2023
 IDE - Intellij IDEA Ultimate version 2022.3.2

@@ -143,10 +143,9 @@ public class AppointmentScreen implements Initializable {
      * a selection made. If there was not then it should catch an error message. The deletion is made by appointment ID.
      * Which will also be presented in the confirmation warning as well as the type of appointment.
      * @param event
-     * @throws IOException
      */
     @FXML
-    public void deleteBtnAction(ActionEvent event) throws SQLException {
+    public void deleteBtnAction(ActionEvent event) {
 
 
 

@@ -179,7 +179,7 @@ public class UpdateCustomer implements Initializable {
         ObservableList<Divisions> divisionsObservableList = DBDivisions.codeOneDivisions(customer.getCountryId());
 
         divisionCombo.setItems(divisionsObservableList);
-        System.out.println(divisionsObservable);//To see what value is pulled.
+//        System.out.println(divisionsObservable);//To see what value is pulled.
 
         for (Countries c : countryCombo.getItems()){
             if (c.getId() == customer.getCountryId()){

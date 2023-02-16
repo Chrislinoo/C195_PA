@@ -71,4 +71,25 @@ public class DBAppointments {
         return rowsAffected;
     }
 
+    /**
+     * Takes in a customer ID and deletes the appointment where its foreign key resides. Created this method to satisfy
+     * the task requirements the evaluator said i was missing.
+     * @param customer_Id
+     * @return rowsAffected
+     * @throws SQLException
+     */
+    public static int deleteCustomerID(int customer_Id) throws SQLException {
+        String deleteSql = "DELETE FROM appointments WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(deleteSql);
+
+
+        ps.setInt(1,customer_Id);
+
+
+        int rowsAffected = ps.executeUpdate();
+        ps.close();
+
+        return rowsAffected;
+    }
+
 }

@@ -3,6 +3,7 @@ package DBAccess;
 import Database.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Appointments;
 import model.Customer;
 
 import java.sql.PreparedStatement;

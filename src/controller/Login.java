@@ -168,6 +168,7 @@ public class Login implements Initializable {
                     System.out.println("Appointment within 15 minutes!");
                 }else {Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"No appointments scheduled for the next 15 minutes");
                     Optional<ButtonType> buttonType = alert.showAndWait();
+                    System.out.println("No appointment within the next 15 minutes!");
                 }
 //----------------------------------------------------------------------------------------------------------------------
             }

@@ -4,6 +4,7 @@ import DBAccess.DBAppointments;
 import DBAccess.DBCustomers;
 import DBAccess.DBDivisions;
 import Database.JDBC;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +22,7 @@ import model.Divisions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -136,6 +138,7 @@ public class CustomerScreen implements Initializable {
             int selectedCustomer = customerTable.getSelectionModel().getSelectedItem().getCustomerId();
 
             if (result.isPresent() && result.get() == ButtonType.OK){
+                DBAppointments.deleteCustomerID(selectedCustomer);//Added this bit to fix the problems that the evaluator spoke about.
             DBCustomers.delete(selectedCustomer);
             ObservableList<Customer> customerObservableList = DBCustomers.getAllCustomers();
             customerTable.setItems(customerObservableList);
